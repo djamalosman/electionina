@@ -3,31 +3,7 @@
     <div class="sidebar-wrapper active ps ps--active-y">
             <div class="sidebar-header position-relative">
                 <div class="d-flex justify-content-between align-items-center">
-                    {{-- <div class="btn-group mb-1">
-                        <div class="dropdown">
-                            <button class="btn btn-primary btn-sm dropdown-toggle" type="button"
-                                id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                Profile
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                        document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                    </form>
-                           
-                            </div>
-                        </div>
-                    </div> --}}
-                    {{-- <div class="logo">
-                        <a href="index.html"><img src="{{('assets/images/logo/logo.svg')}}" alt="Logo" srcset=""></a>
-                    </div> --}}
+                   
                     <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--system-uicons" width="20" height="20" preserveAspectRatio="xMidYMid meet" viewBox="0 0 21 21"><g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 14.5c2.219 0 4-1.763 4-3.982a4.003 4.003 0 0 0-4-4.018c-2.219 0-4 1.781-4 4c0 2.219 1.781 4 4 4zM4.136 4.136L5.55 5.55m9.9 9.9l1.414 1.414M1.5 10.5h2m14 0h2M4.135 16.863L5.55 15.45m9.899-9.9l1.414-1.415M10.5 19.5v-2m0-14v-2" opacity=".3"></path><g transform="translate(-210 -1)"><path d="M220.5 2.5v2m6.5.5l-1.5 1.5"></path><circle cx="220.5" cy="11.5" r="4"></circle><path d="m214 5l1.5 1.5m5 14v-2m6.5-.5l-1.5-1.5M214 18l1.5-1.5m-4-5h2m14 0h2"></path></g></g></svg>
                         <div class="form-check form-switch fs-6">
@@ -46,43 +22,48 @@
                 <ul class="menu">
                     <li class="sidebar-title">Menu</li>
                     
-                        <li class="sidebar-item active" >
+                        <li class="sidebar-item " >
                             <a href="index.html" class="sidebar-link">
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
-                        
+                    
                     </li>
-                    @if (Auth::user()->code_pasien == "0")
-                    <li
-                    class="sidebar-item  ">
-                    <a href="{{route('Obat')}}" class='sidebar-link'>
-                        <i class="bi bi-file-earmark-medical-fill"></i>
-                        <span>Obat</span>
-                    </a>
-                </li>
-                <li
-                    class="sidebar-item  ">
-                    <a href="{{route('Pasien')}}" class='sidebar-link'>
-                        <i class="bi bi-file-earmark-medical-fill"></i>
-                        <span>Pasien</span>
-                    </a>
-                </li>
-                <li
-                    class="sidebar-item  ">
-                    <a href="{{route('Schedule')}}" class='sidebar-link'>
-                        <i class="bi bi-file-earmark-medical-fill"></i>
-                        <span>Jadwal</span>
-                    </a>
-                </li>
-                    @endif
-                
-                    <li
-                        class="sidebar-item  ">
-                        <a href="{{route('listpasien')}}" class='sidebar-link'>
+                    <li class="sidebar-item  ">
+                        <a href="#" class='sidebar-link'>
                             <i class="bi bi-file-earmark-medical-fill"></i>
-                            <span>List Pasien</span>
+                            <span>Calculate</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item  ">
+                        <a href="#" class='sidebar-link'>
+                            <i class="bi bi-file-earmark-medical-fill"></i>
+                            <span>Data Partai</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item  ">
+                        <a href="#" class='sidebar-link'>
+                            <i class="bi bi-file-earmark-medical-fill"></i>
+                            <span>Data Caleg</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item  ">
+                        <a href="#" class='sidebar-link'>
+                            <i class="bi bi-file-earmark-medical-fill"></i>
+                            <span>Data Dapil</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item  ">
+                        <a href="#" class='sidebar-link'>
+                            <i class="bi bi-file-earmark-medical-fill"></i>
+                            <span>Data Mobile</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item  ">
+                        <a href="{{ route('tps') }}" class='sidebar-link'>
+                            <i class="bi bi-file-earmark-medical-fill"></i>
+                            <span>Data Tps</span>
                         </a>
                     </li>
                     <li
@@ -96,71 +77,8 @@
                                     @csrf
                                 
                                     </form>
-                                    <a href="{{ route('logout') }}" class="sidebar-link"></a>
                         </a>
                     </li>
-                    {{-- <li class="sidebar-title">Forms &amp; Tables</li> --}}
-                    
-                    {{-- <li class="sidebar-item
-                                     @if($status == 2 || $status == 3)
-                                        active
-                                    @endif has-sub">
-                        <a href="#" class="sidebar-link">
-                            <i class="bi bi-hexagon-fill"></i>
-                            <span>Form Input</span>
-                        </a>
-                        <ul class="submenu 
-                            @if($status == 2 || $status == 3 ||  $status == 4)
-                                active
-                            @endif ">
-                            <li class="submenu-item
-                                @if($status == 2)
-                                    active
-                                @endif ">
-                                <a href="/Obat">Obat</a>
-                            </li>
-                            <li class="submenu-item
-                                @if($status == 3)
-                                    active
-                                @endif ">
-                                <a href="/Pasien">Pasien</a>
-                            </li>
-                            <li class="submenu-item
-                                @if($status == 4)
-                                    active
-                                @endif ">
-                                <a href="/Schedule">Jadwal Obat Pasien</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li
-                        class="sidebar-item ">
-                        <a href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();" {{ __('Logout') }} class='sidebar-link'>
-                            <i class="bi bi-person-badge-fill"></i>
-                            <span>Logout</span>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                               
-                                </form>
-                                <a href="{{ route('logout') }}" class="sidebar-link"></a>
-                        </a>
-                    </li> --}}
-                    
-                    {{-- <li class="sidebar-item  ">
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                            </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                            </form>
-                            <a href="{{ route('logout') }}" class="sidebar-link"></a>
-                    </li> --}}
-                    
                 </ul>
             </div>
             <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 609px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 217px;"></div>

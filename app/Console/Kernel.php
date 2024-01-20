@@ -4,13 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use DateTime;
-use DateTimeZone;
-use App\Models\Pasien;
-use App\Models\Obat;
-use App\Models\ScheduleDetail;
-use Illuminate\Support\Facades\DB;
-use App\Traits\WablasTrait;
+
 class Kernel extends ConsoleKernel
 {
     /**
@@ -21,7 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('command:obatpasien')->everyMinute();
+        // $schedule->command('inspire')->hourly();
     }
 
     /**
