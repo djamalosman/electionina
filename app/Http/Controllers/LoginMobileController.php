@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 class LoginMobileController extends Controller
 {
     /**
@@ -16,7 +18,7 @@ class LoginMobileController extends Controller
         *    version="1.0.0",
         * )
      * @OA\Post(
-     *     path="/api/loginmobile",
+     *     path="   ",
      *     summary="logins",
      *     tags={"Authentication"},
      *     @OA\RequestBody(
@@ -37,17 +39,20 @@ class LoginMobileController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-    
+        
+        // Validasi input
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 400);
         }
+        
         // Cek data di database
-
         $user = User::where('email', $request->email)->first();
-        if (!$user || Hash::check($request->password, $user->password)) {
-            return response()->json(['error' => 'Invalid credentials'], 401);
-        }else {
-            return response()->json(['message' => 'Login successful'], 200);
+        
+        // Periksa apakah pengguna tidak ditemukan atau kata sandi tidak cocok
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return response()->json(['error' => 'Kredensial tidak valid'], 401);
+        } else {
+            return response()->json(['message' => 'Login berhasil'], 200);
         }
     }
 }
