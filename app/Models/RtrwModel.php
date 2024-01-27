@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class sendwa extends Model
+class RtrwModel extends Model
 {
-    public $timestamps = false;
-    protected $table = 't_hisschedule';
+    public $timestamps = true;
+    protected $table = 'rtrw';
     protected $guarded = [];
     use HasFactory;
 }

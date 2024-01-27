@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TpsModel extends Model
+class DesaModel extends Model
 {
     public $timestamps = true;
-    protected $table = 'tps';
+    protected $table = 'desa';
     protected $guarded = [];
     use HasFactory;
 }

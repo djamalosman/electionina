@@ -36,34 +36,60 @@
                             <span>Calculate</span>
                         </a>
                     </li>
+                    
+                    {{-- <li class="sidebar-item  ">
+                        <a href="{{ route('partai') }}"
+                            <i class="bi bi-file-earmark-medical-fill"></i>
+                            <span>Data Partai</span>
+                        </a>
+                    </li> --}}
                     <li class="sidebar-item  ">
-                        <a href="#" class='sidebar-link'>
+                        <a href="{{ route('partai') }}" class='sidebar-link'>
                             <i class="bi bi-file-earmark-medical-fill"></i>
                             <span>Data Partai</span>
                         </a>
                     </li>
                     <li class="sidebar-item  ">
-                        <a href="#" class='sidebar-link'>
+                        <a href="{{ route('caleg') }}" class='sidebar-link'>
                             <i class="bi bi-file-earmark-medical-fill"></i>
                             <span>Data Caleg</span>
                         </a>
                     </li>
                     <li class="sidebar-item  ">
-                        <a href="#" class='sidebar-link'>
+                        <a href="{{ route('dapil') }}"
+                            class='sidebar-link'>
                             <i class="bi bi-file-earmark-medical-fill"></i>
                             <span>Data Dapil</span>
                         </a>
                     </li>
                     <li class="sidebar-item  ">
+                        <a href="{{ route('camat') }}" class='sidebar-link'>
+                            <i class="bi bi-file-earmark-medical-fill"></i>
+                            <span>Data Kecamatan</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item  ">
+                        <a href="{{ route('desa') }}" class='sidebar-link'>
+                            <i class="bi bi-file-earmark-medical-fill"></i>
+                            <span>Data Desa</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item  ">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-file-earmark-medical-fill"></i>
-                            <span>Data Mobile</span>
+                            <span>Data Alamat Tps</span>
                         </a>
                     </li>
                     <li class="sidebar-item  ">
                         <a href="{{ route('tps') }}" class='sidebar-link'>
                             <i class="bi bi-file-earmark-medical-fill"></i>
                             <span>Data Tps</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item  ">
+                        <a href="#" class='sidebar-link'>
+                            <i class="bi bi-file-earmark-medical-fill"></i>
+                            <span>Data User Mobile</span>
                         </a>
                     </li>
                     <li

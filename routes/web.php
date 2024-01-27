@@ -3,6 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TpsController;
+use App\Http\Controllers\DapilController;
+use App\Http\Controllers\PartaiController;
+use App\Http\Controllers\KecamatanController;
+use App\Http\Controllers\DesaController;
+use App\Http\Controllers\CalegController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,6 +25,35 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+//Master Partai
+Route::get('partai', [PartaiController::class, 'index'])->name('partai');
+Route::post('partai/create', [PartaiController::class, 'create'])->name('partai.create');
+Route::post('partai/update', [PartaiController::class, 'update'])->name('partai.update');
 
-//Master
+
+//Master Caleg
+Route::get('caleg', [CalegController::class, 'index'])->name('caleg');
+Route::post('caleg/create', [CalegController::class, 'create'])->name('caleg.create');
+Route::post('caleg/update', [CalegController::class, 'update'])->name('caleg.update');
+
+
+//Master Dapil
+Route::get('dapil', [DapilController::class, 'index'])->name('dapil');
+Route::post('dapil/create', [DapilController::class, 'create'])->name('dapil.create');
+Route::post('dapil/update', [DapilController::class, 'update'])->name('dapil.update');
+
+//Master kecamatan
+Route::get('camat', [KecamatanController::class, 'index'])->name('camat');
+Route::post('camat/create', [KecamatanController::class, 'create'])->name('camat.create');
+Route::post('camat/update', [KecamatanController::class, 'update'])->name('camat.update');
+
+//Master desa
+Route::get('desa', [DesaController::class, 'index'])->name('desa');
+Route::post('desa/create', [DesaController::class, 'create'])->name('desa.create');
+Route::post('desa/update', [DesaController::class, 'update'])->name('desa.update');
+
+//Master tps
 Route::get('tps', [TpsController::class, 'index'])->name('tps');
+Route::post('tps/create', [TpsController::class, 'create'])->name('tps.create');
+Route::post('tps/update', [TpsController::class, 'update'])->name('tps.update');
+

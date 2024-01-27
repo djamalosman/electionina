@@ -14,6 +14,14 @@ return [
                 */
                 'api' => 'api/documentation',
             ],
+            'middlewares' => [
+                // ...
+                'api' => [
+                    // ...
+                    \App\Http\Middleware\YourCustomMiddleware::class,
+                    // ...
+                ],
+            ],
             'paths' => [
                 /*
                  * Edit to include full URL in ui for assets
