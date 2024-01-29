@@ -123,7 +123,7 @@
                                 <div class="form-group">
                                     <label>Pilih user mobile </label>
                                     <select class="choices form-select" id="iduser" name="iduser">
-                                        @foreach ($user as $vals)
+                                        @foreach ($camat as $vals)
                                             <option value="{{ $vals->iduser }}">{{ $vals->username }}</option>
                                         @endforeach
                                     </select>

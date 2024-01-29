@@ -21,10 +21,10 @@ class KecamatanController extends Controller
         $dapil =  DB::table('dapil')->select('dapil.id as dapilid','dapil.provinsi','dapil.kota_kabupaten')->get();
         $data = DB::table('kecamatan')
         ->join('dapil', 'dapil.id', '=', 'kecamatan.id_dapil')
-        ->select('dapil.provinsi', 'dapil.kota_kabupaten','kecamatan.nama_kecamatan','kecamatan.id as idcamat')
+        ->select('dapil.provinsi', 'dapil.kota_kabupaten','kecamatan.nama_kecamatan','kecamatan.id as idcamat','kecamatan.modified_by','kecamatan.updated_at')
         ->orderBy('kecamatan.updated_at', 'desc')
         ->get();
-        return view('camat.index', compact('data','status'.'user'));
+        return view('camat.index', compact('data','status','dapil'));
     }
     public function create(Request $request)
     {

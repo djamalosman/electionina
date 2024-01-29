@@ -23,7 +23,7 @@ class DesaController extends Controller
         ->select('desa.nama_desa','kecamatan.nama_kecamatan','desa.id as iddesa')
         ->orderBy('desa.updated_at', 'desc')
         ->get();
-        return view('desa.index', compact('data','status'.'user'));
+        return view('desa.index', compact('data','status','camat'));
     }
     public function create(Request $request)
     {

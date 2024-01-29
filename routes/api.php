@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginMobileController;
+use App\Http\Controllers\ApiImageController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,3 +20,4 @@ use App\Http\Controllers\LoginMobileController;
 // });
 
 Route::post('/loginmobile', [LoginMobileController::class, 'loginmobile']);
+Route::post('/uploadimage', [ApiImageController::class, 'uploadimage']);

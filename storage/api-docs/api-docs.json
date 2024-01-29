@@ -47,6 +47,52 @@
                     }
                 }
             }
+        },
+        "/api/uploadimage": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Upload Image",
+                "operationId": "8eb4b6165db3b40e63a701aeca15a5b6",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "image"
+                                ],
+                                "properties": {
+                                    "id_user": {
+                                        "type": "integer",
+                                        "format": "number",
+                                        "example": ""
+                                    },
+                                    "id_tps": {
+                                        "type": "integer",
+                                        "format": "number",
+                                        "example": ""
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful login"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
         }
     }
 }
