@@ -61,22 +61,22 @@
                         "application/json": {
                             "schema": {
                                 "required": [
-                                    "image"
+                                    "photos"
                                 ],
                                 "properties": {
                                     "id_user": {
                                         "type": "integer",
                                         "format": "number",
-                                        "example": ""
+                                        "example": "1"
                                     },
                                     "id_tps": {
                                         "type": "integer",
                                         "format": "number",
-                                        "example": ""
+                                        "example": "1"
                                     },
-                                    "image": {
+                                    "photos": {
                                         "type": "string",
-                                        "format": "binary"
+                                        "format": "base64"
                                     }
                                 },
                                 "type": "object"
@@ -86,7 +86,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Successful login"
+                        "description": "Successful Upload image"
                     },
                     "401": {
                         "description": "Unauthorized"
