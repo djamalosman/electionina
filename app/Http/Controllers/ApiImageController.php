@@ -50,28 +50,37 @@ class ApiImageController extends Controller
      */
     public function Uploadimage(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'image' => 'required|image',
-            'id_tps' => 'id_tps',
-            'id_user' => 'id_user',
-        ]);
         
-        // Validasi input
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 400);
-        }
-        DB::beginTransaction();   
+        try {
+                $validator = Validator::make($request->all(), [
+                    'image' => 'required|image',
+                    'id_tps' => 'id_tps',
+                    'id_user' => 'id_user',
+                ]);
                 
-            ImageModel::create([
-                'image' => $request->image,
-                'id_user' => $request->id_user,
-                'id_tps' => $request->id_tps,
-                'created_by' => Auth::user()->name,
-                'modified_by' => Auth::user()->name,
-                'updated_at' => Carbon::now(),
-                'created_at' =>Carbon::now(),
-                'deletestatus' => 0,
-            ]);
+                // Validasi input
+                if ($validator->fails()) {
+                    return response()->json(['error' => $validator->errors()], 400);
+                }
+                DB::beginTransaction();   
+                        
+                    ImageModel::create([
+                        'image' => $request->image,
+                        'id_user' => $request->id_user,
+                        'id_tps' => $request->id_tps,
+                        'created_by' => Auth::user()->name,
+                        'modified_by' => Auth::user()->name,
+                        'updated_at' => Carbon::now(),
+                        'created_at' =>Carbon::now(),
+                        'deletestatus' => 0,
+                    ]);
+                    DB::commit();
+                    return response()->json(['message' => 'Simapan Image berhasil'], 200);
+            }catch (\Throwable $th) {
+                DB::rollBack();
+                dd($th);
+                return response()->json(['error' => $validator->errors()], 400);
+            }
     }
 
 }
