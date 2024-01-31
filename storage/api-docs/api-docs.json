@@ -60,23 +60,35 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "required": [
-                                    "photos"
-                                ],
                                 "properties": {
-                                    "id_user": {
-                                        "type": "integer",
-                                        "format": "number",
-                                        "example": "1"
-                                    },
-                                    "id_tps": {
-                                        "type": "integer",
-                                        "format": "number",
-                                        "example": "1"
-                                    },
+                                    // "id_user": {
+                                    //     "type": "integer",
+                                    //     "format": "number",
+                                    //     "example": "1"
+                                    // },
+                                    // "id_tps": {
+                                    //     "type": "integer",
+                                    //     "format": "number",
+                                    //     "example": "1"
+                                    // },
                                     "photos": {
-                                        "type": "string",
-                                        "format": "base64"
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "photo": {
+                                                    "type": "string",
+                                                    "format": "base64"
+                                                },
+                                                "filename": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "photo",
+                                                "filename"
+                                            ]
+                                        }
                                     }
                                 },
                                 "type": "object"

@@ -22,16 +22,7 @@ class ApiImageController extends Controller
  *         @OA\MediaType(
  *             mediaType="application/json",
  *             @OA\Schema(
- *                 @OA\Property(
- *                     property="id_user",
- *                     type="integer",
- *                     example=1,
- *                 ),
- *                 @OA\Property(
- *                     property="id_tps",
- *                     type="integer",
- *                     example=1,
- *                 ),
+ *                 
  *                 @OA\Property(
  *                     property="photos",
  *                     type="array",
