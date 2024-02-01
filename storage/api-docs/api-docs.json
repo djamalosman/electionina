@@ -61,16 +61,16 @@
                         "application/json": {
                             "schema": {
                                 "properties": {
-                                    // "id_user": {
-                                    //     "type": "integer",
-                                    //     "format": "number",
-                                    //     "example": "1"
-                                    // },
-                                    // "id_tps": {
-                                    //     "type": "integer",
-                                    //     "format": "number",
-                                    //     "example": "1"
-                                    // },
+                                    "id_user": {
+                                        "type": "integer",
+                                        "format": "number",
+                                        "example": "1"
+                                    },
+                                    "id_tps": {
+                                        "type": "integer",
+                                        "format": "number",
+                                        "example": "1"
+                                    },
                                     "photos": {
                                         "type": "array",
                                         "items": {
@@ -78,7 +78,7 @@
                                             "properties": {
                                                 "photo": {
                                                     "type": "string",
-                                                    "format": "base64"
+                                                    "format": "base64-encoded-string"
                                                 },
                                                 "filename": {
                                                     "type": "string"
