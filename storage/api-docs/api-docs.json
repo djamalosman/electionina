@@ -105,6 +105,36 @@
                     }
                 }
             }
+        },
+        "/api/dapil": {
+            "get": {
+              "tags": ["Dapil"],
+              "summary": "Get Dapil",
+              "operationId": "8eb4b6165db3b40e63a701aeca15a5b6",
+              "responses": {
+                "200": {
+                  "description": "Successful retrieval of Dapil data"
+                },
+                "401": {
+                  "description": "Unauthorized"
+                }
+              }
+            }
+        },
+        "/api/kota": {
+            "get": {
+              "tags": ["Dapil"],
+              "summary": "Get kota",
+              "operationId": "8eb4b6165db3b40e63a701aeca15a5b6",
+              "responses": {
+                "200": {
+                  "description": "Successful retrieval of Kota data"
+                },
+                "401": {
+                  "description": "Unauthorized"
+                }
+              }
+            }
         }
     }
 }

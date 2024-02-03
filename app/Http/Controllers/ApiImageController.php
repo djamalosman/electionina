@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 
 use DateTime;
 use App\Models\ImageModel;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 class ApiImageController extends Controller
 {
-   /**
+/**
  * @OA\Post(
  *     path="/api/uploadimage",
  *     summary="Image Upload",
@@ -81,15 +83,20 @@ class ApiImageController extends Controller
              $imageName = $photo['filename'];
  
              // Save the image to a desired directory (you may need to adjust the path)
-             $path = storage_path("app/public/images/$imageName");
-             file_put_contents($path, $imageData);
- 
+             $path = public_path("assets\images\ $imageName");
+             //file_put_contents($path, $imageData);
+             //$path = public_path("assets/images/");
+                if (!file_exists($path)) {
+                    mkdir($path, 0755, true);
+                    file_put_contents($path, $imageData);
+                }
+            
              $image = ImageModel::create([
                  'image' => $path,
                  'id_user' => $request->id_user,
                  'id_tps' => $request->id_tps,
-                 'created_by' => Auth::user()->name,
-                 'modified_by' => Auth::user()->name,
+                //  'created_by' => Auth::user()->name,
+                //  'modified_by' => Auth::user()->name,
                  'updated_at' => Carbon::now(),
                  'created_at' => Carbon::now(),
                  'deletestatus' => 0,
