@@ -26,3 +26,4 @@ Route::post('/uploadimage', [ApiImageController::class, 'uploadimage']);
 
 Route::get('/dapil', [ApiDapilController::class, 'dapil']);
 Route::get('/kota', [ApiDapilController::class, 'kota']);
+Route::get('/insertDetailDapil', [ApiDapilController::class, 'insertDetailDapil']);

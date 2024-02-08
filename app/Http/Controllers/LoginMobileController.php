@@ -52,7 +52,7 @@ class LoginMobileController extends Controller
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json(['error' => 'Kredensial tidak valid'], 401);
         } else {
-            return response()->json(['message' => 'Login berhasil'], 200);
+            return response()->json(['message' => 'Login berhasil','id_user' => $user->id], 200);
         }
     }
 }

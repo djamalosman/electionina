@@ -135,6 +135,43 @@
                 }
               }
             }
+        },
+        "/api/insertDetailDapil": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Create Detail Dapil",
+                "operationId": "8eb4b6165db3b40e63a701aeca15a5b6",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id_dapil"
+                                ],
+                                "properties": {
+                                    "id_dapil": {
+                                        "type": "int",
+                                        "format": "number",
+                                        "example": ""
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Insert Data"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
         }
     }
 }
