@@ -26,4 +26,8 @@ Route::post('/uploadimage', [ApiImageController::class, 'uploadimage']);
 
 Route::get('/dapil', [ApiDapilController::class, 'dapil']);
 Route::get('/kota', [ApiDapilController::class, 'kota']);
-Route::get('/insertDetailDapil', [ApiDapilController::class, 'insertDetailDapil']);
+Route::get('/kecamatan/{id_user}', [ApiDapilController::class, 'kecamatan']);
+Route::get('/desa/{id_user}', [ApiDapilController::class, 'desa']);
+Route::get('/rtrw/{id_user}', [ApiDapilController::class, 'rtrw']);
+Route::get('/tps/{id_user}', [ApiDapilController::class, 'tps']);
+Route::post('/insertDetailDapil', [ApiDapilController::class, 'insertDetailDapil']);

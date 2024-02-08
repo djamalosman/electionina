@@ -136,6 +136,112 @@
               }
             }
         },
+        "/api/kecamatan/{id_user}": {
+            "get": {
+              "tags": ["Kecamatan"],
+              "summary": "Get Kecamatan by ID User",
+              "operationId": "8eb4b6165db3b40e63a701aeca15a5b6",
+              "parameters": [
+                {
+                  "name": "id_user",
+                  "in": "path",
+                  "description": "ID User",
+                  "required": true,
+                  "schema": {
+                    "type": "integer"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Successful retrieval of Kecamatan data by ID User"
+                },
+                "401": {
+                  "description": "Unauthorized"
+                }
+              }
+            }
+          },
+          "/api/desa/{id_user}": {
+            "get": {
+              "tags": ["Desa"],
+              "summary": "Get Desa by ID User",
+              "operationId": "8eb4b6165db3b40e63a701aeca15a5b6",
+              "parameters": [
+                {
+                  "name": "id_user",
+                  "in": "path",
+                  "description": "ID User",
+                  "required": true,
+                  "schema": {
+                    "type": "integer"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Successful retrieval of Kecamatan data by ID User"
+                },
+                "401": {
+                  "description": "Unauthorized"
+                }
+              }
+            }
+          },
+          "/api/rtrw/{id_user}": {
+            "get": {
+              "tags": ["Rt RW"],
+              "summary": "Get Rt Rw by ID User",
+              "operationId": "8eb4b6165db3b40e63a701aeca15a5b6",
+              "parameters": [
+                {
+                  "name": "id_user",
+                  "in": "path",
+                  "description": "ID User",
+                  "required": true,
+                  "schema": {
+                    "type": "integer"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Successful retrieval of Kecamatan data by ID User"
+                },
+                "401": {
+                  "description": "Unauthorized"
+                }
+              }
+            }
+          },
+
+          "/api/tps/{id_user}": {
+            "get": {
+              "tags": ["Tps"],
+              "summary": "Get tps by ID User",
+              "operationId": "8eb4b6165db3b40e63a701aeca15a5b6",
+              "parameters": [
+                {
+                  "name": "id_user",
+                  "in": "path",
+                  "description": "ID User",
+                  "required": true,
+                  "schema": {
+                    "type": "integer"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Successful retrieval of Kecamatan data by ID User"
+                },
+                "401": {
+                  "description": "Unauthorized"
+                }
+              }
+            }
+          },
+
         "/api/insertDetailDapil": {
             "post": {
                 "tags": [
@@ -152,9 +258,30 @@
                                     "id_dapil"
                                 ],
                                 "properties": {
+                                    
                                     "id_dapil": {
-                                        "type": "int",
-                                        "format": "number",
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": ""
+                                    },
+                                    "id_camat": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": ""
+                                    },
+                                    "id_desa": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": ""
+                                    },
+                                    "id_rtrw": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": ""
+                                    },
+                                    "id_tps": {
+                                        "type": "string",
+                                        "format": "string",
                                         "example": ""
                                     }
                                 },

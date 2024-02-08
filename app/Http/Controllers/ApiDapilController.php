@@ -8,7 +8,7 @@ use App\Models\KecamatanModel;
 use App\Models\DesaModel;
 use App\Models\RtrwModel;
 use App\Models\TpsModel;
-use App\Models\UserModel;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
@@ -19,18 +19,19 @@ use Carbon\Carbon;
 class ApiDapilController extends Controller
 {
  
+
     /**
-     * @OA\Info(
-     *    title="Your super Application API",
-     *    version="1.0.0",
-     * )
-     * @OA\Get(
-     *     path="/dapil",
-     *     summary="Get Dapil",
-     *     tags={"Authentication"},
-     *     @OA\Response(response="200", description="Successful retrieval of Dapil data"),
-     *     @OA\Response(response="401", description="Unauthorized"),
-     * )
+         * @OA\Info(
+         *    title="Your super Application API",
+         *    version="1.0.0",
+         * )
+         * @OA\Get(
+         *     path="/dapil",
+         *     summary="Get Dapil",
+         *     tags={"Authentication"},
+         *     @OA\Response(response="200", description="Successful retrieval of Dapil data"),
+         *     @OA\Response(response="401", description="Unauthorized"),
+         * )
      */
     public function dapil()
     {
@@ -42,7 +43,6 @@ class ApiDapilController extends Controller
 
             $result = [];
 
-            // Jika Anda ingin mengakses data dari semua baris
             foreach ($data as $row) {
                 $result[] = [
                     'id_dapil' => $row->id_dapil,
@@ -55,6 +55,8 @@ class ApiDapilController extends Controller
             return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
+
+
     /**
      * @OA\Info(
      *    title="Your super Application API",
@@ -78,7 +80,7 @@ class ApiDapilController extends Controller
 
             $result = [];
 
-            // Jika Anda ingin mengakses data dari semua baris
+            
             foreach ($data as $row) {
                 $result[] = [
                     'id_dapil' => $row->id_dapil,
@@ -93,19 +95,223 @@ class ApiDapilController extends Controller
     }
 
     /**
+         * @OA\Info(
+         *    title="Your super Application API",
+         *    version="1.0.0",
+         * )
+         * @OA\Get(
+         *     path="/kecamatan",
+         *     summary="Get Kecamatan",
+         *     tags={"Authentication"},
+         *     @OA\Parameter(
+         *         name="id_user",
+         *         in="path",
+         *         description="ID user",
+         *         required=false
+         *     ),
+         *     @OA\Response(response="200", description="Successful retrieval of Dapil data"),
+         *     @OA\Response(response="401", description="Unauthorized"),
+         * )
+     */
+
+    public function kecamatan($idUser)
+    {
+        try {
+            //$getIdUser =  User::where('id', $idUser)->get();
+            $data = DB::table(function($query) use ($idUser) {
+                $query->select(
+                    'kecamatan.id as idkecamatan',
+                    'kecamatan.nama_kecamatan as namekecamatan'
+                )
+                ->from('tps')
+                ->join('rtrw', 'rtrw.id', '=', 'tps.id_rtrw')
+                ->join('desa', 'desa.id', '=', 'rtrw.id_desa')
+                ->join('kecamatan', 'kecamatan.id', '=', 'desa.id_kecamatan')
+                ->where('tps.id_user', $idUser)
+                ->groupBy('idkecamatan', 'namekecamatan');
+            })->get();
+            $result = [];
+
+            foreach ($data as $row) {
+                $result[] = [
+                    'idkecamatan' => $row->idkecamatan,
+                    'namekecamatan' => $row->namekecamatan
+                ];
+            }
+
+            return response()->json(['data' => $result], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Internal Server Error'], 500);
+        }
+    }
+
+     /**
+         * @OA\Info(
+         *    title="Your super Application API",
+         *    version="1.0.0",
+         * )
+         * @OA\Get(
+         *     path="/desa",
+         *     summary="Get Desa",
+         *     tags={"Authentication"},
+         *     @OA\Parameter(
+         *         name="id_user",
+         *         in="path",
+         *         description="ID user",
+         *         required=false
+         *     ),
+         *     @OA\Response(response="200", description="Successful retrieval of Dapil data"),
+         *     @OA\Response(response="401", description="Unauthorized"),
+         * )
+     */
+
+     public function desa($idUser)
+     {
+         try {
+             //$getIdUser =  User::where('id', $idUser)->get();
+             $data = DB::table(function($query) use ($idUser) {
+                 $query->select(
+                     'desa.id as iddesa',
+                     'desa.nama_desa as namedesa'
+                 )
+                 ->from('tps')
+                 ->join('rtrw', 'rtrw.id', '=', 'tps.id_rtrw')
+                 ->join('desa', 'desa.id', '=', 'rtrw.id_desa')
+                 ->where('tps.id_user', $idUser)
+                 ->groupBy('iddesa', 'namedesa');
+             })->get();
+             $result = [];
+ 
+             foreach ($data as $row) {
+                 $result[] = [
+                     'iddesa' => $row->iddesa,
+                     'namedesa' => $row->namedesa
+                 ];
+             }
+ 
+             return response()->json(['data' => $result], 200);
+         } catch (\Exception $e) {
+             return response()->json(['error' => 'Internal Server Error'], 500);
+         }
+     }
+
+     /**
+         * @OA\Info(
+         *    title="Your super Application API",
+         *    version="1.0.0",
+         * )
+         * @OA\Get(
+         *     path="/rtrw",
+         *     summary="Get Rt Rw",
+         *     tags={"Authentication"},
+         *     @OA\Parameter(
+         *         name="id_user",
+         *         in="path",
+         *         description="ID user",
+         *         required=false
+         *     ),
+         *     @OA\Response(response="200", description="Successful retrieval of Dapil data"),
+         *     @OA\Response(response="401", description="Unauthorized"),
+         * )
+     */
+
+     public function rtrw($idUser)
+     {
+         try {
+             //$getIdUser =  User::where('id', $idUser)->get();
+             $data = DB::table(function($query) use ($idUser) {
+                $query->select(
+                    'rtrw.id as idrtrw',
+                    DB::raw("CONCAT( 'RT','',rtrw.rt, '/','RW' ,rtrw.rw) AS namertrw") // Menggabungkan RT dan RW menjadi satu kolom
+                )
+                ->from('tps')
+                ->join('rtrw', 'rtrw.id', '=', 'tps.id_rtrw')
+                ->where('tps.id_user', $idUser)
+                ->groupBy('idrtrw', 'namertrw'); // Pastikan untuk mengelompokkan juga berdasarkan kolom yang baru digabungkan
+            })->get();
+             $result = [];
+ 
+             foreach ($data as $row) {
+                 $result[] = [
+                     'idrtrw' => $row->idrtrw,
+                     'namertrw' => $row->namertrw
+                 ];
+             }
+ 
+             return response()->json(['data' => $result], 200);
+         } catch (\Exception $e) {
+             return response()->json(['error' => 'Internal Server Error'], 500);
+         }
+     }
+
+     /**
+         * @OA\Info(
+         *    title="Your super Application API",
+         *    version="1.0.0",
+         * )
+         * @OA\Get(
+         *     path="/tps",
+         *     summary="Get Tps",
+         *     tags={"Authentication"},
+         *     @OA\Parameter(
+         *         name="id_user",
+         *         in="path",
+         *         description="ID user",
+         *         required=false
+         *     ),
+         *     @OA\Response(response="200", description="Successful retrieval of Dapil data"),
+         *     @OA\Response(response="401", description="Unauthorized"),
+         * )
+     */
+
+     public function tps($idUser)
+     {
+         try {
+             //$getIdUser =  User::where('id', $idUser)->get();
+             $data = DB::table(function($query) use ($idUser) {
+                $query->select(
+                    'tps.id_tps as idtps',
+                    DB::raw("CONCAT( 'TPS',' - ',tps.name_tps) AS nametps") 
+                )
+                ->from('tps')
+                ->where('tps.id_user', $idUser)
+                ->groupBy('idtps', 'nametps');
+            })->get();
+             $result = [];
+ 
+             
+             foreach ($data as $row) {
+                 $result[] = [
+                     'idtps' => $row->idtps,
+                     'nametps' => $row->nametps
+                 ];
+             }
+ 
+             return response()->json(['data' => $result], 200);
+         } catch (\Exception $e) {
+             return response()->json(['error' => 'Internal Server Error'], 500);
+         }
+     }
+
+    /**
         * @OA\Info(
         *    title="Your super  ApplicationAPI",
         *    version="1.0.0",
         * )
      * @OA\Post(
-     *     path="   ",
+     *     path="Create Dapil",
      *     summary="insertDetailDapil",
      *     tags={"Authentication"},
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
      *             required={"id_dapil"},
-     *             @OA\Property(property="id_dapil", type="int", format="number", example="")
+    
+     *             @OA\Property(property="id_dapil", type="string", format="string", example=""),
+     *             @OA\Property(property="id_camat", type="string", format="string", example="")
+     *             @OA\Property(property="id_desa", type="string", format="string", example="")
+     *             @OA\Property(property="id_rtrw", type="string", format="string", example="")
+     *             @OA\Property(property="id_tps", type="string", format="string", example="")
      *         )
      *     ), 
      *     @OA\Response(response="200", description="Successful loginmobile"),
@@ -116,9 +322,7 @@ class ApiDapilController extends Controller
     public function insertDetailDapil(Request $request)
     {
         try {
-            $validator = Validator::make($request->all(), [
-                'idProv' => 'required|idProv'
-            ]);
+            
     
             // Validasi input
             if ($validator->fails()) {
@@ -127,27 +331,23 @@ class ApiDapilController extends Controller
     
             DB::beginTransaction();
     
-            $image = DetailDapilModel::create([
+            $data = DetailDapilModel::create([
                 'id_user' => $request->id_user,
                 'id_tps' => $request->id_tps,
                 'id_rtrw' => $request->id_rtrw,
                 'id_desa' => $request->id_desa,
-                'id_kecamatan' => $request->id_kecamatan,
+                'id_kecamatan' => $request->id_camat,
                 'id_dapil' => $request->id_dapil,
                 'updated_at' => Carbon::now(),
                 'created_at' => Carbon::now(),
                 'status_input' => 1,
             ]);
-
-            // Add uploaded image details to the response data
-            $uploadedImages[] = [
-                'filename' => $image->image
-            ];
-    
+            $lastId = 1;
+            
             DB::commit();
     
             // Include uploaded image details in the response
-            return response()->json(['message' => 'Image(s) successfully uploaded', 'uploaded_images' => $uploadedImages], 200);
+            return response()->json(['message' => 'Berhasil insert data', 'iddtl_dapil' => $lastId], 200);
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json(['error' => 'Internal Server Error'], 500);
