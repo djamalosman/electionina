@@ -255,10 +255,15 @@
                         "application/json": {
                             "schema": {
                                 "required": [
-                                    "id_dapil"
+                                    "id_dapil",
+                                    "id_camat"
                                 ],
                                 "properties": {
-                                    
+                                  "id_user": {
+                                    "type": "string",
+                                    "format": "string",
+                                    "example": ""
+                                    },
                                     "id_dapil": {
                                         "type": "string",
                                         "format": "string",
@@ -299,6 +304,21 @@
                     }
                 }
             }
+        },
+        "/api/candidates": {
+          "get": {
+            "tags": ["candidates"],
+            "summary": "Get candidates",
+            "operationId": "8eb4b6165db3b40e63a701aeca15a5b6",
+            "responses": {
+              "200": {
+                "description": "Successful retrieval of candidates data"
+              },
+              "401": {
+                "description": "Unauthorized"
+              }
+            }
+          }
         }
     }
 }

@@ -9,6 +9,7 @@ use App\Models\DesaModel;
 use App\Models\RtrwModel;
 use App\Models\TpsModel;
 use App\Models\User;
+use App\Models\DetailDapilModel;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
@@ -299,18 +300,19 @@ class ApiDapilController extends Controller
         *    version="1.0.0",
         * )
      * @OA\Post(
-     *     path="Create Dapil",
-     *     summary="insertDetailDapil",
+     *     path="/insertDetailDapil",
+     *     summary="Insert dapil",
      *     tags={"Authentication"},
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
-     *             required={"id_dapil"},
+     *             required={"id_dapil,id_camat"},
     
+     *             @OA\Property(property="id_user", type="string", format="string", example=""),
      *             @OA\Property(property="id_dapil", type="string", format="string", example=""),
-     *             @OA\Property(property="id_camat", type="string", format="string", example="")
-     *             @OA\Property(property="id_desa", type="string", format="string", example="")
-     *             @OA\Property(property="id_rtrw", type="string", format="string", example="")
+     *             @OA\Property(property="id_camat", type="string", format="string", example=""),
+     *             @OA\Property(property="id_desa", type="string", format="string", example=""),
+     *             @OA\Property(property="id_rtrw", type="string", format="string", example=""),
      *             @OA\Property(property="id_tps", type="string", format="string", example="")
      *         )
      *     ), 
@@ -323,7 +325,10 @@ class ApiDapilController extends Controller
     {
         try {
             
-    
+            $validator = Validator::make($request->all(), [
+                'id_dapil' => 'required',
+                'id_camat' => 'required',
+            ]);
             // Validasi input
             if ($validator->fails()) {
                 return response()->json(['error' => $validator->errors()], 400);
@@ -338,20 +343,60 @@ class ApiDapilController extends Controller
                 'id_desa' => $request->id_desa,
                 'id_kecamatan' => $request->id_camat,
                 'id_dapil' => $request->id_dapil,
+                'created_by' => $request->id_user,
+                'modified_by' => $request->id_user,
                 'updated_at' => Carbon::now(),
                 'created_at' => Carbon::now(),
                 'status_input' => 1,
             ]);
-            $lastId = 1;
+            $lastId = $data->getKey();
             
             DB::commit();
     
             // Include uploaded image details in the response
-            return response()->json(['message' => 'Berhasil insert data', 'iddtl_dapil' => $lastId], 200);
+            return response()->json(['message' => 'Berhasil insert data', 'iddtldapil' => $lastId], 200);
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
+
+
+    /**
+         * @OA\Info(
+         *    title="Your super Application API",
+         *    version="1.0.0",
+         * )
+         * @OA\Get(
+         *     path="/candidates",
+         *     summary="Get candidates",
+         *     tags={"Authentication"},
+         *     @OA\Response(response="200", description="Successful retrieval of Dapil data"),
+         *     @OA\Response(response="401", description="Unauthorized"),
+         * )
+     */
+    public function candidates()
+    {
+        try {
+            $data = DB::table('caleg')
+                ->select('caleg.id_caleg as id', 'caleg.name_caleg as nama')
+                ->orderBy('caleg.updated_at', 'desc')
+                ->get();
+
+            $result = [];
+
+            foreach ($data as $row) {
+                $result[] = [
+                    'id' => $row->id,
+                    'nama' => $row->nama
+                ];
+            }
+
+            return response()->json(['data' => $result], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Internal Server Error'], 500);
+        }
+    }
+    
 
 }

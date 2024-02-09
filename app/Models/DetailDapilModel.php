@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class DetailDapilModel extends Model
 {
-    public $timestamps = true;
+    public $timestamps = false;
     protected $table = 'detail_dapil';
     protected $guarded = [];
     use HasFactory;
