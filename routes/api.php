@@ -31,3 +31,7 @@ Route::get('/desa/{id_user}', [ApiDapilController::class, 'desa']);
 Route::get('/rtrw/{id_user}', [ApiDapilController::class, 'rtrw']);
 Route::get('/tps/{id_user}', [ApiDapilController::class, 'tps']);
 Route::post('/insertDetailDapil', [ApiDapilController::class, 'insertDetailDapil']);
+
+Route::get('/candidates', [ApiDapilController::class, 'candidates']);
+
+Route::post('/vote', [ApiDapilController::class, 'vote']);

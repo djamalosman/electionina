@@ -319,6 +319,68 @@
               }
             }
           }
+        },
+        "/api/vote": {
+          "post": {
+              "tags": [
+                  "Authentication"
+              ],
+              "summary": "Create Detail Dapil",
+              "operationId": "8eb4b6165db3b40e63a701aeca15a5b6",
+              "requestBody": {
+                  "required": true,
+                  "content": {
+                      "application/json": {
+                          "schema": {
+                              "required": [
+                                  "id",
+                                  "suara",
+                                  "iddapil",
+                                  "idtps",
+                                  "iduser"
+                              ],
+                              "properties": {
+                                "id": {
+                                  "type": "string",
+                                  "format": "string",
+                                  "example": ""
+                                  },
+                                "suara": {
+                                    "type": "string",
+                                    "format": "string",
+                                    "example": ""
+                                },
+                                "iddapil": {
+                                  "type": "string",
+                                  "format": "string",
+                                  "example": ""
+                                },
+                                "idtps": {
+                                  "type": "string",
+                                  "format": "string",
+                                  "example": ""
+                                },
+                                "iduser": {
+                                  "type": "string",
+                                  "format": "string",
+                                  "example": ""
+                                }
+                                  
+                              },
+                              "type": "object"
+                          }
+                      }
+                  }
+              },
+              "responses": {
+                  "200": {
+                      "description": "Successful Insert Data"
+                  },
+                  "401": {
+                      "description": "Unauthorized"
+                  }
+              }
+          }
         }
     }
 }

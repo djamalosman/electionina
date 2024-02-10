@@ -10,6 +10,7 @@ use App\Models\RtrwModel;
 use App\Models\TpsModel;
 use App\Models\User;
 use App\Models\DetailDapilModel;
+use App\Models\CalculateModel;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
@@ -398,5 +399,59 @@ class ApiDapilController extends Controller
         }
     }
     
+
+    /**
+        * @OA\Info(
+        *    title="Your super  ApplicationAPI",
+        *    version="1.0.0",
+        * )
+     * @OA\Post(
+     *     path="/vote",
+     *     summary="Insert suara caleg",
+     *     tags={"Authentication"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+    *              required={"id", "suara", "iddapil", "idtps", "iduser"},
+     *             @OA\Property(property="id", type="string", example="1"),
+     *             @OA\Property(property="suara", type="string", example="100"),
+     *             @OA\Property(property="iddapil", type="string", example="2"),
+     *             @OA\Property(property="idtps", type="string", example="3"),
+     *             @OA\Property(property="iduser", type="string", example="4")
+     *         )
+     *     ), 
+     *     @OA\Response(response="200", description="Successful loginmobile"),
+     *     @OA\Response(response="401", description="Unauthorized"),
+     * )
+     */
+
+    public function vote(Request $request)
+    {
+            // Validasi request jika diperlukan
+            
+            $validatedData = $request->validate([
+                '*.id' => 'required|string',
+                '*.suara' => 'required|string',
+                '*.iddapil' => 'required|string',
+                '*.idtps' => 'required|string',
+                '*.iduser' => 'required|string'
+            ]);
+            foreach ($validatedData as $data) {
+                CalculateModel::create([
+                    'id_caleg' => $data['id'],
+                    'totalsuara_caleg' => $data['suara'],
+                    'id_dtl' => $data['iddapil'],
+                    'id_tps' => $data['idtps'],
+                    'id_user' => $data['iduser'],
+                    'created_by' => $data['iduser'],
+                    'modified_by' => $data['iduser'],
+                    'updated_at' => Carbon::now(),
+                    'created_at' => Carbon::now(),
+                ]);
+            }
+
+            // Respon sukses jika diperlukan
+            return response()->json(['message' => 'Data kandidat berhasil disimpan'], 200);
+    }
 
 }
