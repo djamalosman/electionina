@@ -1,3 +1,0 @@
-RewriteEngine On
-RewriteRule ^$ abn-nasdem.com/electionina [L]
-RewriteRule (.*) abn-nasdem.com.com/$1 [L]
