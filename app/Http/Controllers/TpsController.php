@@ -23,7 +23,8 @@ class TpsController extends Controller
     {
         $status = 1;
         $user =  DB::table('users')->select('users.name as username','users.id as iduser')->get();
-        $rtrw =  RtrwModel::where('deletestatus', 0)->get();
+        $rtrw =  DB::table('rtrw')->select('rtrw.namertrw as namertrw','rtrw.id as idrtrw')->get();
+        
         $data = DB::table('tps')
         ->join('users', 'tps.id_user', '=', 'users.id')
         ->join('rtrw', 'tps.id_rtrw', '=', 'rtrw.id')
@@ -114,30 +115,52 @@ class TpsController extends Controller
      */
     public function update(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'idtpsx' => 'required',
+            'nametpsx' => 'required',
+            'rtrwIdx' => 'required',
+            'iduserx' => 'required'
+        ]);
         try {
             DB::beginTransaction();
             $id = $request->idtpsx;
-            $flight = TpsModel::find($request->idtpsx);
-                        $flight->name_tps = $request->nametpsx;
-                        $flight->id_rtrw = $request->rtrwId;
-                        $flight->id_user = $request->iduser;
-                        $flight->created_by = Auth::user()->name;
-                        $flight->modified_by = Auth::user()->name;
-                        $flight->created_at = Carbon::now();
-                        $flight->updated_at = Carbon::now(); 
-                        $flight->update();
-                        DB::commit();
-                        return response()->json([
+            TpsModel::where('id_tps', $request->idtpsx)
+                            ->update([
+                                'id_rtrw' => $request->rtrwIdx,               
+                                'id_user' => $request->iduserx,               
+                                'name_tps' => $request->nametpsx,               
+                                'modified_by' => $request->iduserx,               
+                                'updated_at' => Carbon::now(),               
+                            ]);
+                            DB::commit();
+                       return response()->json([
                             'url' => url('tps'),
-                            'message' => 'Update Data Berhasil'
+                            'message' => 'Update Data Berhasil',
+                            'status'=>200
                         ]);
+            // $flight = TpsModel::find($request->idtpsx);
+            //             $flight->name_tps = $request->nametpsx;
+            //             $flight->id_rtrw = $request->rtrwId;
+            //             $flight->id_user = $request->iduser;
+            //             $flight->created_by = Auth::user()->name;
+            //             $flight->modified_by = Auth::user()->name;
+            //             $flight->created_at = Carbon::now();
+            //             $flight->updated_at = Carbon::now(); 
+            //             $flight->update();
+            //             DB::commit();
+            //             return response()->json([
+            //                 'url' => url('tps'),
+            //                 'message' => 'Update Data Berhasil',
+            //                 'status'=>200
+            //             ]);
         }
         catch (\Throwable $th) {
             DB::rollBack();
-            //dd($th);
+            dd($th);
             return response()->json([
                 'url' => url('tps'),
-                'message' => 'Update Data Gagal!!'
+                'message' => "Gagal Update Data",
+                'status'=>400
             ]);
         }
     }

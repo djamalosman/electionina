@@ -23,7 +23,7 @@
                     <li class="sidebar-title">Menu</li>
                     
                         <li class="sidebar-item " >
-                            <a href="index.html" class="sidebar-link">
+                            <a href="{{ route('home') }}" class="sidebar-link">
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
@@ -87,7 +87,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item  ">
-                        <a href="#" class='sidebar-link'>
+                        <a href="{{ route('usermobile') }}" class='sidebar-link'>
                             <i class="bi bi-file-earmark-medical-fill"></i>
                             <span>Data User Mobile</span>
                         </a>

@@ -8,6 +8,7 @@ use App\Http\Controllers\PartaiController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\DesaController;
 use App\Http\Controllers\CalegController;
+use App\Http\Controllers\UserMobilelController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,6 +25,10 @@ Route::get('/', function () {
 });
 Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+//Route::post('/load-chart-data', [HomeController::class, 'loadChartData'])->name('load-chart-data');
+Route::get('/load-chart-data', [HomeController::class, 'loadChartData']);
+Route::get('/get-tps', [HomeController::class, 'getTpsByDesa']);
+
 
 //Master Partai
 Route::get('partai', [PartaiController::class, 'index'])->name('partai');
@@ -56,4 +61,10 @@ Route::post('desa/update', [DesaController::class, 'update'])->name('desa.update
 Route::get('tps', [TpsController::class, 'index'])->name('tps');
 Route::post('tps/create', [TpsController::class, 'create'])->name('tps.create');
 Route::post('tps/update', [TpsController::class, 'update'])->name('tps.update');
+
+
+//Master Usermobile
+Route::get('usermobile', [UserMobilelController::class, 'index'])->name('usermobile');
+Route::post('usermobile/create', [UserMobilelController::class, 'create'])->name('usermobile.create');
+Route::post('usermobile/update', [UserMobilelController::class, 'update'])->name('usermobile.update');
 

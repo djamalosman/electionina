@@ -8,71 +8,119 @@
     <div id="main">
         <div class="page-content">
             <section class="row">
-                <div class="col-12 col-lg-9">
+                <div class="col-12 col-lg-12">
                     <div class="row">
-                        <div class="col-6 col-lg-3 col-md-6">
+                        <div class="col-6 col-lg-2 col-md-4">
                             <div class="card">
                                 <div class="card-body px-4 py-4-5">
                                     <div class="row">
-                                        <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                                            <div class="stats-icon purple mb-2">
-                                                <i class="iconly-boldShow"></i>
-                                            </div>
+                                        <div class="col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                            <h3 class="text-muted font-semibold">PARTAI</h3>
                                         </div>
-                                        <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                            <h6 class="text-muted font-semibold">Profile Views</h6>
-                                            <h6 class="font-extrabold mb-0">112.000</h6>
+                                        <div class="col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                            <div class="form-group">
+                                                <select class="choices form-select" id="partai_id" name="partai_id">
+                                                    <option value="0">Pilih Partai</option>
+                                                    @foreach ($partai as $valpartai)
+                                                        <option value="{{ $valpartai->id_partai }}">{{ $valpartai->name_partai }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6 col-lg-3 col-md-6">
+                        <div class="col-6 col-lg-2 col-md-4" >
                             <div class="card">
                                 <div class="card-body px-4 py-4-5">
                                     <div class="row">
-                                        <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                                            <div class="stats-icon blue mb-2">
-                                                <i class="iconly-boldProfile"></i>
-                                            </div>
+                                        <div class="col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                            <h3 class="text-muted font-semibold">DAPIL</h3>
                                         </div>
-                                        <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                            <h6 class="text-muted font-semibold">Followers</h6>
-                                            <h6 class="font-extrabold mb-0">183.000</h6>
+                                        <div class="col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                            <div class="form-group">
+                                                    <select class="choices form-select" name="kecamatan_id" id="kecamatan_id">
+                                                        <option value="square">Pilih Dapil</option>
+                                                        @foreach ($kecamatan as $valcamat)
+                                                            <option value="{{ $valcamat->idcamat }}">{{ $valcamat->provinsi }}-{{ $valcamat->kota_kabupaten }}-{{ $valcamat->namacamat }}</option>
+                                                        @endforeach
+                                                    </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6 col-lg-3 col-md-6">
+                        <div class="col-6 col-lg-2 col-md-4">
                             <div class="card">
                                 <div class="card-body px-4 py-4-5">
                                     <div class="row">
-                                        <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                                            <div class="stats-icon green mb-2">
-                                                <i class="iconly-boldAdd-User"></i>
-                                            </div>
+                                        <div class="col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                            <h3 class="text-muted font-semibold">DESA</h3>
                                         </div>
-                                        <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                            <h6 class="text-muted font-semibold">Following</h6>
-                                            <h6 class="font-extrabold mb-0">80.000</h6>
+                                        <div class="col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                            <div class="form-group">
+                                                <select class="choices form-select" id="selectDesa" name="selectDesa">
+                                                    <option value="square">Pilih Desa</option>
+                                                    @foreach ($desa as $valdesa)
+                                                        <option value="{{ $valdesa->iddesa }}">{{ $valdesa->namadesa }} </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6 col-lg-3 col-md-6">
+                        <div class="col-6 col-lg-2 col-md-4">
                             <div class="card">
                                 <div class="card-body px-4 py-4-5">
                                     <div class="row">
-                                        <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                                            <div class="stats-icon red mb-2">
-                                                <i class="iconly-boldBookmark"></i>
+                                        <div class="col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                            <h3 class="text-muted font-semibold">TPS</h3>
+                                        </div>
+                                        <div class="col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                            <div class="form-group">
+                                                <select class="choices form-select" id="selectTps">
+                                                    <option value="square">Pilih Tps</option>
+                                                </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                            <h6 class="text-muted font-semibold">Saved Post</h6>
-                                            <h6 class="font-extrabold mb-0">112</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-lg-2 col-md-4 ">
+                            <div class="card">
+                                <div class="card-body px-4 py-4-5">
+                                    <div class="row">
+                                        <div class="col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                            <h3 class="text-muted font-semibold">CALEG</h3>
+                                        </div>
+                                        <div class="col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                            <div class="form-group">
+                                                <select class="choices form-select">
+                                                    <option value="square">Pilih Caleg</option>
+                                                    @foreach ($caleg as $valcaleg)
+                                                        <option value="{{ $valcaleg->id_caleg }}">{{ $valcaleg->name_caleg }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-lg-2 col-md-4 ">
+                            <div class="card">
+                                <div class="card-body px-4 py-4-5">
+                                    <div class="row">
+                                        <div class="col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                            <div class="form-group">
+                                                <h3 class="text-muted font-semibold">TOTAL   SUARA</h3>
+                                                <h4 class="text-muted font-semibold">900</h4>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -81,195 +129,196 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4>Profile Visit</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div id="chart-profile-visit"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-xl-4">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4>Profile Visit</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="d-flex align-items-center">
-                                                <svg class="bi text-primary" width="32" height="32" fill="blue"
-                                                    style="width:10px">
-                                                    <use
-                                                        xlink:href="assets/images/bootstrap-icons.svg#circle-fill" />
-                                                </svg>
-                                                <h5 class="mb-0 ms-3">Europe</h5>
+                            <section class="section">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4 class="card-title">Bar Chart</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <canvas id="bar"></canvas>
                                             </div>
                                         </div>
-                                        <div class="col-6">
-                                            <h5 class="mb-0">862</h5>
-                                        </div>
-                                        <div class="col-12">
-                                            <div id="chart-europe"></div>
-                                        </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="d-flex align-items-center">
-                                                <svg class="bi text-success" width="32" height="32" fill="blue"
-                                                    style="width:10px">
-                                                    <use
-                                                        xlink:href="assets/images/bootstrap-icons.svg#circle-fill" />
-                                                </svg>
-                                                <h5 class="mb-0 ms-3">America</h5>
+                                    <div class="col-md-6" hidden>
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4 class="card-title">Line Chart</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <canvas id="line"></canvas>
                                             </div>
                                         </div>
-                                        <div class="col-6">
-                                            <h5 class="mb-0">375</h5>
-                                        </div>
-                                        <div class="col-12">
-                                            <div id="chart-america"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="d-flex align-items-center">
-                                                <svg class="bi text-danger" width="32" height="32" fill="blue"
-                                                    style="width:10px">
-                                                    <use
-                                                        xlink:href="assets/images/bootstrap-icons.svg#circle-fill" />
-                                                </svg>
-                                                <h5 class="mb-0 ms-3">Indonesia</h5>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <h5 class="mb-0">1025</h5>
-                                        </div>
-                                        <div class="col-12">
-                                            <div id="chart-indonesia"></div>
-                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-xl-8">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4>Latest Comments</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover table-lg">
-                                            <thead>
-                                                <tr>
-                                                    <th>Name</th>
-                                                    <th>Comment</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="col-3">
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="avatar avatar-md">
-                                                                <img src="assets/images/faces/5.jpg">
-                                                            </div>
-                                                            <p class="font-bold ms-3 mb-0">Si Cantik</p>
-                                                        </div>
-                                                    </td>
-                                                    <td class="col-auto">
-                                                        <p class=" mb-0">Congratulations on your graduation!</p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="col-3">
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="avatar avatar-md">
-                                                                <img src="assets/images/faces/2.jpg">
-                                                            </div>
-                                                            <p class="font-bold ms-3 mb-0">Si Ganteng</p>
-                                                        </div>
-                                                    </td>
-                                                    <td class="col-auto">
-                                                        <p class=" mb-0">Wow amazing design! Can you make another tutorial for
-                                                            this design?</p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
+                            </section>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-lg-3">
-                    <div class="card">
-                        <div class="card-body py-4 px-4">
-                            <div class="d-flex align-items-center">
-                                <div class="avatar avatar-xl">
-                                    <img src="assets/images/faces/1.jpg" alt="Face 1">
-                                </div>
-                                <div class="ms-3 name">
-                                    <h5 class="font-bold">John Duck</h5>
-                                    <h6 class="text-muted mb-0">@johnducky</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Recent Messages</h4>
-                        </div>
-                        <div class="card-content pb-4">
-                            <div class="recent-message d-flex px-4 py-3">
-                                <div class="avatar avatar-lg">
-                                    <img src="assets/images/faces/4.jpg">
-                                </div>
-                                <div class="name ms-4">
-                                    <h5 class="mb-1">Hank Schrader</h5>
-                                    <h6 class="text-muted mb-0">@johnducky</h6>
-                                </div>
-                            </div>
-                            <div class="recent-message d-flex px-4 py-3">
-                                <div class="avatar avatar-lg">
-                                    <img src="assets/images/faces/5.jpg">
-                                </div>
-                                <div class="name ms-4">
-                                    <h5 class="mb-1">Dean Winchester</h5>
-                                    <h6 class="text-muted mb-0">@imdean</h6>
-                                </div>
-                            </div>
-                            <div class="recent-message d-flex px-4 py-3">
-                                <div class="avatar avatar-lg">
-                                    <img src="assets/images/faces/1.jpg">
-                                </div>
-                                <div class="name ms-4">
-                                    <h5 class="mb-1">John Dodol</h5>
-                                    <h6 class="text-muted mb-0">@dodoljohn</h6>
-                                </div>
-                            </div>
-                            <div class="px-4">
-                                <button class='btn btn-block btn-xl btn-outline-primary font-bold mt-3'>Start Conversation</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Visitors Profile</h4>
-                        </div>
-                        <div class="card-body">
-                            <div id="chart-visitors-profile"></div>
-                        </div>
-                    </div>
-                </div>
+                
+                
             </section>
         </div>
     </div>
 </div>
+<script src="{{'assets/extensions/choices.js/public/assets/scripts/choices.js'}}"></script>
+<script src="{{'assets/extensions/chart.js/Chart.min.js'}}"></script>
+<script src="{{'assets/js/pages/ui-chartjs.js'}}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#selectDesa').on('change', function() {
+            var selectedDesa = $(this).val();
+            $('#selectTps').empty();
+            $('#selectTps').append($('<option>', {
+                value: 'square',
+                text: 'Pilih Tps'
+            }));
+            $.ajax({
+                url: '/get-tps', // Ganti dengan URL Anda
+                type: 'GET',
+                data: {
+                    iddesa: selectedDesa
+                },
+                success: function(response) {
+                    var tps = response.tps;
+                    $.each(tps, function(key, value) {
+                        $('#selectTps').append($('<option>', {
+                            value: value.idrtrw,
+                            text: 'RT ' + value.rt + '/RW ' + value.rw + ' - TPS ' + value.name_tps
+                        }));
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    });
+</script>
+<script>
 
-<script src="{{ asset('assets/extensions/apexcharts/apexcharts.min.js') }}"></script>
-<script src="{{ asset('assets/js/pages/dashboard.js') }}"></script>
+// Di dalam file JavaScript Anda
+$(document).ready(function() {
+    // Fungsi untuk mengambil data dari server dan memperbarui Bar Chart
+    function fetchData(partaiId, kecamatan_id,desa,tpsId, calegId) {
+        $.ajax({
+            url: '/load-chart-data', // Ganti URL ini dengan URL endpoint di Controller Laravel Anda
+            method: 'GET',
+            data: {
+                partai_id: partaiId,
+                kecamatan_id:kecamatan_id,
+                desa:desa,
+                tps_id: tpsId,
+                caleg_id: calegId
+            },
+            success: function(response) {
+                // Memperbarui Bar Chart dengan data yang diterima dari server
+                
+                updateBarChart(response.data.labels, response.data.values);
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+
+   // Fungsi untuk memperbarui Bar Chart
+    // Fungsi untuk memperbarui Bar Chart
+    function updateBarChart(labels, values) {
+        // Ambil elemen canvas Bar Chart
+        var ctx = document.getElementById('bar').getContext('2d');
+
+        // Hapus Bar Chart yang sudah ada jika ada
+        if (window.barChart != null) {
+            window.barChart.destroy();
+        }
+        
+        
+        // Buat Bar Chart baru dengan data yang diterima
+        window.barChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels, // Label untuk sumbu x (nama partai)
+                datasets: [{
+                    label: 'Total Suara', // Label untuk dataset
+                    data: values, // Nilai untuk dataset
+                    name:labels,
+                    backgroundColor: function(context) {
+                        var label = context.dataset.name[context.dataIndex];
+                        // Menentukan warna berdasarkan nilai
+                        if (label === 'Nasdem') {       
+                            return chartColors.blue; // Warna biru untuk Nasdem
+                        } else if (label === 'PDI-P') {
+                            return chartColors.red; // Warna merah untuk PDI-P
+                        } else {
+                            return chartColors.grey; // Warna default untuk nilai lainnya
+                        }
+                    },
+                    borderWidth: 1,
+                }]
+            },
+            options: {
+                responsive: true,
+                barRoundness: 5, // Mengatur kebulatan sudut batang
+                title: {
+                    display: true,
+                    text: "Grafik Total Suara"
+                },
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            suggestedMax: 40 + 20,
+                            padding: 10,
+                        },
+                        gridLines: {
+                            display: true,
+                            color: "rgba(0, 0, 0, 0.1)" // Warna gridlines yang lebih ringan
+                        }
+                    }],
+                    xAxes: [{
+                        gridLines: {
+                            display: false,
+                        }
+                    }]
+                },
+                animation: {
+                    duration: 1000, // Durasi animasi 1 detik saat grafik dimuat
+                    easing: 'easeInOutQuart' // Efek animasi
+                },
+                tooltips: {
+                    enabled: true, // Aktifkan tooltip
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)', // Warna latar belakang tooltip
+                    titleFontColor: '#ffffff', // Warna teks judul tooltip
+                    bodyFontColor: '#ffffff' // Warna teks konten tooltip
+                },
+                // Mengatur lebar bar
+                barThickness: 'flex', // Untuk lebar bar fleksibel
+                // barThickness: 20, // Untuk lebar bar tetap
+            }
+        });
+
+
+    }
+
+
+    // Ketika salah satu select option berubah
+    $('#partai_id, #kecamatan_id,#selectDesa,#selectTps, #caleg_id').change(function() {
+        var partaiId = $('#partai_id').val();
+        var kecamatan_id = $('#kecamatan_id').val();
+        var desa = $('#selectDesa').val();
+        var tpsId = $('#selectTps').val();
+        var calegId = $('#caleg_id').val();
+        fetchData(partaiId, kecamatan_id,desa,tpsId, calegId);
+    });
+});
+
+
+</script>
+
 @endsection

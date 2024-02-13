@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('title')
     HOME
+   
 @endsection
 
 @section('content')
@@ -15,14 +16,14 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-12 col-md-6 order-md-1 order-last">
-                        <h3>Data Tps</h3>
+                        <h3>Data User Mobile</h3>
                     
                     </div>
                     <div class="col-12 col-md-6 order-md-2 order-first">
                         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index.html">Menu</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Tps</li>
+                                <li class="breadcrumb-item active" aria-current="page">User Mobile</li>
                             </ol>
                         </nav>
                         
@@ -58,32 +59,27 @@
                         <table class="table" id="table1">
                             <thead>
                                 <tr>
-                                    <th>Nama Tps</th>
-                                    <th>User Mobile</th>
+                                    <th>Nama</th>
                                     <th>Email</th>
-                                    <th>Alamat</th>
-                                    <th>RT/RW</th>
-                                    <th>Tanggal</th>
+                                    <th>Password</th>
+                                    <th>Di buat</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($data as $header)
                                     <tr>
-                                        <td>{{ $header->name_tps }}</td>
-                                        
-                                        <td>{{ $header->username }}</td>
+                                        <td>{{ $header->usernameMobile }}</td>
                                         <td>{{ $header->email }}</td>
-                                        <td>{{ $header->alamat }}</td>
-                                        <td>{{ $header->namertrw }}</td>
+                                        <td class="hidetext">{{ $header->password }}</td>
                                         <td>{{ $header->updated_at }}</td>
                                         <td>
                                             <a class="passingID2 btn btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#default"
-                                            data-idtps="{{ $header->idtps }}"
-                                            data-namauser="{{ $header->username }}"
-                                            data-rtrwname="{{ $header->namertrw }}"
-                                            data-titlentps="{{ $header->name_tps }}">
+                                            data-iduser="{{ $header->iduserMobile }}"
+                                            data-namauser="{{ $header->usernameMobile }}"
+                                            data-passwordser="{{ $header->password }}"
+                                            data-email="{{ $header->email }}">
                                             <dt class="the-icon"><span class="fa-fw select-all fas"></span></dt>
                                           </a>
                                         </td>
@@ -103,35 +99,29 @@
                     role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="myModalLabel33">Tambah Tps </h4>
+                            <h4 class="modal-title" id="myModalLabel33">Tambah User Mobile </h4>
                             <button type="button" class="close" data-bs-dismiss="modal"
                                 aria-label="Close">
                                 <i data-feather="x"></i>
                             </button>
                         </div>
-                        <form action="{{ route('tps.create') }}" onsubmit="validateForm()" method="POST" enctype="multipart/form-data" id="form">
+                        <form action="{{ route('usermobile.create') }}" onsubmit="validateForm()" method="POST" enctype="multipart/form-data" id="form">
                             @csrf
                             <div class="modal-body">
-                                <label>Nama Tps </label>
+                                <label>Nama User</label>
                                 <div class="form-group">
-                                    <input type="text" name="tpsname" id="tpsname" placeholder="Nama Tps"
+                                    <input type="text" name="username" id="username" placeholder="Nama User"
                                         class="form-control">
                                 </div>
+                                <label>Email User</label>
                                 <div class="form-group">
-                                    <label>Pilih Rt/Rw</label>
-                                    <select class="choices form-select" id="rtrwId" name="rtrwId">
-                                        @foreach ($rtrw as $val)
-                                            <option value="{{ $val->idrtrw }}">{{ $val->namertrw }}</option>
-                                        @endforeach
-                                    </select>
+                                    <input type="email" name="email" id="email" placeholder="Email User"
+                                        class="form-control">
                                 </div>
+                                <label>Password</label>
                                 <div class="form-group">
-                                    <label>Pilih user mobile </label>
-                                    <select class="choices form-select" id="iduser" name="iduser">
-                                        @foreach ($user as $vals)
-                                            <option value="{{ $vals->iduser }}">{{ $vals->username }}</option>
-                                        @endforeach
-                                    </select>
+                                    <input type="password" name="password" id="password" placeholder="Password"
+                                        class="form-control">
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -155,36 +145,30 @@
                 <div class="modal-dialog modal-dialog-scrollable" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="myModalLabel1">Edit  Tps</h5>
+                            <h5 class="modal-title" id="myModalLabel1">Edit User Mobile</h5>
                             <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
                                 aria-label="Close">
                                 <i data-feather="x"></i>
                             </button>
                         </div>
-                        <form action="{{ route('tps.update') }}" onsubmit="validateForm()" method="POST" enctype="multipart/form-data" id="formedit">
+                        <form action="{{ route('usermobile.update') }}" onsubmit="validateForm()" method="POST" enctype="multipart/form-data" id="formedit">
                             @csrf
                             <div class="modal-body">
-                                <label>Nama Tps </label>
+                                <label>Nama User </label>
                                 <div class="form-group">
-                                    <input type="text" name="nametpsx" id="nametpsx" placeholder="Nama Tps"class="form-control">
+                                    <input type="text" name="nameuserx" id="nameuserx" placeholder="Nama User"class="form-control">
                                 </div>
-                                <input hidden type="text" name="idtpsx" id="idtpsx" placeholder="Nama Tps"class="form-control">
-                                <div class="form-group">
-                                    <label>Pilih Rt/Rw</label>
-                                    <select class="choices form-select" id="rtrwIdx" name="rtrwIdx">
-                                        @foreach ($rtrw as $valEdit)
-                                            <option value="{{ $valEdit->idrtrw }}">{{ $valEdit->namertrw }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Pilih user mobile </label>
-                                    <select class="choices form-select" id="iduserx" name="iduserx">
-                                        @foreach ($user as $valEdits)
-                                            <option value="{{ $valEdits->iduser }}">{{ $valEdits->username }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                <input hidden type="text" name="iduserx" id="iduserx" placeholder="id usermobile"class="form-control">
+                                <label>Email User</label>
+                                    <div class="form-group">
+                                        <input type="email" name="emailx" id="emailx" placeholder="Email User"
+                                            class="form-control">
+                                    </div>
+                                <label>Password</label>
+                                    <div class="form-group">
+                                        <input type="password" name="passwordx" id="passwordx" placeholder="Password"
+                                            class="form-control">
+                                    </div>
                             </div>
                            
                             <div class="modal-footer">
@@ -218,15 +202,20 @@
 <script>
     
     $(document).on("click", ".passingID2", function () {
-        var idtps = $(this).data('idtps'); // Use 'id' instead of 'kolom1'
-        var name_tps = $(this).data('titlentps');
+        var iduser = $(this).data('iduser'); 
         var namauser = $(this).data('namauser');
-        var rtrwname = $(this).data('rtrwname');
+        var password = $(this).data('passwordser');
+        var email = $(this).data('email');
         // Set the content of th elements
-        $("#idtpsx").val(idtps);
-        $("#nametpsx").val(name_tps);
-        $("#rtrwIdx").val(rtrwname);
-        $("#iduserx").val(namauser);
+        $("#iduserx").val(iduser);
+        $("#nameuserx").val(namauser);
+        $("#passwordx").val(password);
+        $("#emailx").val(email);
+
+        // data-iduser="{{ $header->iduserMobile }}"
+        //                                     data-namauser="{{ $header->usernameMobile }}"
+        //                                     data-passwordser="{{ $header->password }}"
+        //                                     data-email="{{ $header->email }}">
         
     });
 </script>
@@ -247,7 +236,7 @@
             }
         });
         function validateForm() {
-            var name = document.getElementById("tpsname").value;
+            var name = document.getElementById("username").value;
             // console.log(name);
             // if (input == "") {
             //     alert("Input text cannot be empty!");

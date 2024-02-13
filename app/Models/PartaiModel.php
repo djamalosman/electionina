@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PartaiModel extends Model
 {
-    public $timestamps = true;
+    public $timestamps = false;
     protected $table = 'partai';
     protected $guarded = [];
     use HasFactory;
