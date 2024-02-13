@@ -31,7 +31,13 @@
                     
                     </li>
                     <li class="sidebar-item  ">
-                        <a href="#" class='sidebar-link'>
+                        <a href="{{ route('votecaleg') }}" class='sidebar-link'>
+                            <i class="bi bi-file-earmark-medical-fill"></i>
+                            <span>Vote</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item  ">
+                        <a href="{{ route('calculate') }}" class='sidebar-link'>
                             <i class="bi bi-file-earmark-medical-fill"></i>
                             <span>Calculate</span>
                         </a>

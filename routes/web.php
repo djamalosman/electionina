@@ -9,6 +9,8 @@ use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\DesaController;
 use App\Http\Controllers\CalegController;
 use App\Http\Controllers\UserMobilelController;
+use App\Http\Controllers\CalculateController;
+use App\Http\Controllers\VoteCalculateController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,6 +31,9 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/load-chart-data', [HomeController::class, 'loadChartData']);
 Route::get('/get-tps', [HomeController::class, 'getTpsByDesa']);
 
+
+//Master calculate
+Route::get('calculate', [CalculateController::class, 'index'])->name('calculate');
 
 //Master Partai
 Route::get('partai', [PartaiController::class, 'index'])->name('partai');
@@ -68,3 +73,10 @@ Route::get('usermobile', [UserMobilelController::class, 'index'])->name('usermob
 Route::post('usermobile/create', [UserMobilelController::class, 'create'])->name('usermobile.create');
 Route::post('usermobile/update', [UserMobilelController::class, 'update'])->name('usermobile.update');
 
+
+//Master Partai
+Route::get('votecaleg', [VoteCalculateController::class, 'index'])->name('votecaleg');
+Route::post('votecaleg/create', [VoteCalculateController::class, 'create'])->name('votecaleg.create');
+Route::post('votecaleg/update', [VoteCalculateController::class, 'update'])->name('votecaleg.update');
+
+Route::get('/get-tpsvote', [VoteCalculateController::class, 'getTpsByDesavote']);

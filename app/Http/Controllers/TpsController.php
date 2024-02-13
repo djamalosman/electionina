@@ -49,8 +49,8 @@ class TpsController extends Controller
                 'name_tps' => $request->tpsname,
                 'id_rtrw' => $request->rtrwId,
                 'id_user' => $request->iduser,
-                'created_by' => Auth::user()->name,
-                'modified_by' => Auth::user()->name,
+                // 'created_by' => Auth::user()->name,
+                // 'modified_by' => Auth::user()->name,
                 'updated_at' => Carbon::now(),
                 'created_at' =>Carbon::now(),
                 'deletestatus' => 0,
@@ -115,44 +115,43 @@ class TpsController extends Controller
      */
     public function update(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'idtpsx' => 'required',
-            'nametpsx' => 'required',
-            'rtrwIdx' => 'required',
-            'iduserx' => 'required'
-        ]);
+      
         try {
             DB::beginTransaction();
-            $id = $request->idtpsx;
-            TpsModel::where('id_tps', $request->idtpsx)
-                            ->update([
-                                'id_rtrw' => $request->rtrwIdx,               
-                                'id_user' => $request->iduserx,               
-                                'name_tps' => $request->nametpsx,               
-                                'modified_by' => $request->iduserx,               
-                                'updated_at' => Carbon::now(),               
-                            ]);
-                            DB::commit();
-                       return response()->json([
-                            'url' => url('tps'),
-                            'message' => 'Update Data Berhasil',
-                            'status'=>200
-                        ]);
-            // $flight = TpsModel::find($request->idtpsx);
-            //             $flight->name_tps = $request->nametpsx;
-            //             $flight->id_rtrw = $request->rtrwId;
-            //             $flight->id_user = $request->iduser;
-            //             $flight->created_by = Auth::user()->name;
-            //             $flight->modified_by = Auth::user()->name;
-            //             $flight->created_at = Carbon::now();
-            //             $flight->updated_at = Carbon::now(); 
-            //             $flight->update();
-            //             DB::commit();
-            //             return response()->json([
-            //                 'url' => url('tps'),
-            //                 'message' => 'Update Data Berhasil',
-            //                 'status'=>200
-            //             ]);
+                $updateValues = [];
+
+                // Memeriksa dan menambahkan nilai id_rtrw jika tidak null
+                if ($request->rtrwIdx !== null) {
+                    $updateValues['id_rtrw'] = $request->rtrwIdx;
+                }
+
+                // Memeriksa dan menambahkan nilai id_user jika tidak null
+                if ($request->iduserx !== null) {
+                    $updateValues['id_user'] = $request->iduserx;
+                }
+
+                // Memeriksa dan menambahkan nilai name_tps jika tidak null
+                if ($request->nametpsx !== null) {
+                    $updateValues['name_tps'] = $request->nametpsx;
+                }
+
+                // Memeriksa dan menambahkan nilai modified_by jika tidak null
+                if ($request->iduserx !== null) {
+                    $updateValues['modified_by'] = $request->iduserx;
+                }
+
+                // Melakukan update hanya jika ada nilai yang tidak null
+                if (!empty($updateValues)) {
+                    TpsModel::where('id_tps', $request->idtpsx)->update($updateValues);
+                }
+
+                // Commit transaksi dan kembalikan respons
+                DB::commit();
+                return response()->json([
+                    'url' => url('tps'),
+                    'message' => 'Update Data Berhasil',
+                    'status' => 200
+                ]);
         }
         catch (\Throwable $th) {
             DB::rollBack();

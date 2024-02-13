@@ -10,6 +10,34 @@
             <section class="row">
                 <div class="col-12 col-lg-12">
                     <div class="row">
+                        
+                        <div class="col-6 col-lg-2 col-md-4" >
+                            <div class="card">
+                                <div class="card-body px-4 py-4-5">
+                                    <div class="row">
+                                        <div class="col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                            <h3 class="text-muted font-semibold">DAPIL</h3>
+                                        </div>
+                                        <div class="col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                            <div class="form-group">
+                                                @foreach ($kecamatan as $valcamat)
+                                                    <input hidden value="{{ $valcamat->idcamat }}" id="kecamatan_id" name="kecamatan_id">
+                                                    <h6 class="mb-0 ms-3">Provinsi : {{ $valcamat->provinsi }}</h6>
+                                                    <h6 class="mb-0 ms-3">Kota : {{ $valcamat->kota_kabupaten }}</h6>
+                                                    <h6 class="mb-0 ms-3">Kecamatan : {{ $valcamat->namacamat }}</h6>
+                                                @endforeach
+                                                    {{-- <select class="choices form-select" name="kecamatan_id" id="kecamatan_id">
+                                                        <option value="square">Pilih Dapil</option>
+                                                        @foreach ($kecamatan as $valcamat)
+                                                            <option value="{{ $valcamat->idcamat }}">{{ $valcamat->provinsi }}-{{ $valcamat->kota_kabupaten }}-{{ $valcamat->namacamat }}</option>
+                                                        @endforeach
+                                                    </select> --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-6 col-lg-2 col-md-4">
                             <div class="card">
                                 <div class="card-body px-4 py-4-5">
@@ -25,27 +53,6 @@
                                                         <option value="{{ $valpartai->id_partai }}">{{ $valpartai->name_partai }}</option>
                                                     @endforeach
                                                 </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 col-lg-2 col-md-4" >
-                            <div class="card">
-                                <div class="card-body px-4 py-4-5">
-                                    <div class="row">
-                                        <div class="col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                            <h3 class="text-muted font-semibold">DAPIL</h3>
-                                        </div>
-                                        <div class="col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                            <div class="form-group">
-                                                    <select class="choices form-select" name="kecamatan_id" id="kecamatan_id">
-                                                        <option value="square">Pilih Dapil</option>
-                                                        @foreach ($kecamatan as $valcamat)
-                                                            <option value="{{ $valcamat->idcamat }}">{{ $valcamat->provinsi }}-{{ $valcamat->kota_kabupaten }}-{{ $valcamat->namacamat }}</option>
-                                                        @endforeach
-                                                    </select>
                                             </div>
                                         </div>
                                     </div>
@@ -100,7 +107,7 @@
                                         </div>
                                         <div class="col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                             <div class="form-group">
-                                                <select class="choices form-select">
+                                                <select class="choices form-select" id="caleg_id" name="caleg_id">
                                                     <option value="square">Pilih Caleg</option>
                                                     @foreach ($caleg as $valcaleg)
                                                         <option value="{{ $valcaleg->id_caleg }}">{{ $valcaleg->name_caleg }}</option>
@@ -134,7 +141,7 @@
                                     <div class="col-md-12">
                                         <div class="card">
                                             <div class="card-header">
-                                                <h4 class="card-title">Bar Chart</h4>
+                                                <h4 class="card-title">Bar Grafik</h4>
                                             </div>
                                             <div class="card-body">
                                                 <canvas id="bar"></canvas>
@@ -156,7 +163,22 @@
                         </div>
                     </div>
                 </div>
-                
+                <div class="modal fade" id="dataModal" tabindex="-1" aria-labelledby="dataModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="dataModalLabel">Peringatan</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <p id="modalMessage">Tidak ada data yang tersedia untuk ditampilkan.</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 
             </section>
         </div>
@@ -185,7 +207,7 @@
                     var tps = response.tps;
                     $.each(tps, function(key, value) {
                         $('#selectTps').append($('<option>', {
-                            value: value.idrtrw,
+                            value: value.id_tps,
                             text: 'RT ' + value.rt + '/RW ' + value.rw + ' - TPS ' + value.name_tps
                         }));
                     });
@@ -210,20 +232,29 @@ $(document).ready(function() {
                 partai_id: partaiId,
                 kecamatan_id:kecamatan_id,
                 desa:desa,
-                tps_id: tpsId,
+                tps: tpsId,
                 caleg_id: calegId
             },
             success: function(response) {
                 // Memperbarui Bar Chart dengan data yang diterima dari server
-                
+                if (response.data.labels && response.data.values && response.data.labels.length > 0 && response.data.values.length > 0) {
+                // Jika ada data, perbarui Bar Chart
                 updateBarChart(response.data.labels, response.data.values);
+                } else {
+                    // Jika tidak ada data, lakukan penanganan sesuai kebutuhan, misalnya, munculkan pesan peringatan
+                    $('#modalMessage').text("Tidak ada data yang tersedia untuk ditampilkan.");
+                    $('#dataModal').modal('show');
+                }
+               
             },
             error: function(xhr, status, error) {
                 console.error(error);
+            // Tampilkan modal pesan kesalahan
+                $('#modalMessage').text("Terjadi kesalahan saat memuat data.");
+                $('#dataModal').modal('show');
             }
         });
     }
-
    // Fungsi untuk memperbarui Bar Chart
     // Fungsi untuk memperbarui Bar Chart
     function updateBarChart(labels, values) {
@@ -248,13 +279,7 @@ $(document).ready(function() {
                     backgroundColor: function(context) {
                         var label = context.dataset.name[context.dataIndex];
                         // Menentukan warna berdasarkan nilai
-                        if (label === 'Nasdem') {       
-                            return chartColors.blue; // Warna biru untuk Nasdem
-                        } else if (label === 'PDI-P') {
-                            return chartColors.red; // Warna merah untuk PDI-P
-                        } else {
-                            return chartColors.grey; // Warna default untuk nilai lainnya
-                        }
+                        return chartColors.blue;
                     },
                     borderWidth: 1,
                 }]
@@ -278,7 +303,7 @@ $(document).ready(function() {
                         },
                         gridLines: {
                             display: true,
-                            color: "rgba(0, 0, 0, 0.1)" // Warna gridlines yang lebih ringan
+                            color: "rgba(0, 0, 0, 0.8)" // Warna gridlines yang lebih ringan
                         }
                     }],
                     xAxes: [{

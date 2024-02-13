@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class DesaModel extends Model
 {
-    public $timestamps = true;
+    public $timestamps = false;
     protected $table = 'desa';
     protected $guarded = [];
+    
     use HasFactory;
 }

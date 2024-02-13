@@ -79,12 +79,11 @@
                                         <td>
                                             <a class="passingID8 btn btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#default"
-                                            data-idcalegv=""="{{ $header->idcaleg }}"
-                                            data-nameCalegv="{{ $header->name_caleg }}"
+                                            data-idcalegv="{{ $header->idcaleg }}"
+                                            data-namecalegv="{{ $header->name_caleg }}"
                                             data-provinsiv="{{ $header->provinsi }}"
                                             data-namekotakabuv="{{ $header->kota_kabupaten }}"
-                                            data-namepartaiv="{{ $header->name_partai }}"
-                                            data-nomorpartaiv="{{ $header->nomor_partai }}">
+                                            data-idpartaiv="{{ $header->idpartai }}">
                                             <dt class="the-icon"><span class="fa-fw select-all fas"></span></dt>
                                           </a>
                                         </td>
@@ -197,11 +196,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Kota/Kabupaten </label>
-                                    <select class="choices form-select" @readonly(true) @readonly(true)>
+                                    
                                         @foreach ($dapil as $vals)
-                                            <option value="">{{ $vals->kota_kabupaten }}</option>
+                                            <input type="text" value="{{ $vals->kota_kabupaten }}" class="form-control" readonly>
                                         @endforeach
-                                    </select>
                                 </div>
                                 
                             </div>
@@ -236,20 +234,17 @@
 <script src="assets/js/pages/form-element-select.js"></script>
 <script>
     
-    $(document).on("click", ".passingID5", function () {
-        var idcalegv = $(this).data('idcalegv'); // Use 'id' instead of 'kolom1'
-        var nameCalegv = $(this).data('nameCalegv');
-        var provinsiv = $(this).data('provinsiv');
-        var namekotakabuv = $(this).data('namekotakabuv');
-        var namepartaiv = $(this).data('namekotakabuv');
-        var namapartaiv = $(this).data('namekotakabuv');
-        // Set the content of th elements
-        $("#idcalegx").val(idcalegv);
-        $("#namecalegx").val(nameCalegv);
-        $("#provinsix").val(provinsiv);
-        $("#namekotakabux").val(namekotakabuv);
-        $("#nomorpartaix").val(namapartaiv);
-
+    $(document).on("click", ".passingID8", function () {
+        var idcaleg = $(this).data('idcalegv'); // // Use 'id' instead of 'kolom1'
+        var namecaleg = $(this).data('namecalegv');
+        var provinsi = $(this).data('provinsiv');
+        var namekotakabu = $(this).data('namekotakabuv');
+        var namapartai = $(this).data('idpartaiv');
+        // Set the content of th element
+        $("#namecalegx").val(namecaleg);
+        $("#provinsix").val(provinsi);
+        $("#namekotakabux").val(namekotakabu);
+        $("#idpartaix").val(namapartai);
     });
 </script>
 <script>

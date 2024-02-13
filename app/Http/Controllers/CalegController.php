@@ -22,7 +22,7 @@ class CalegController extends Controller
         $data = DB::table('caleg')
         ->join('dapil', 'dapil.id', '=', 'caleg.id_dapil')
         ->join('partai', 'partai.id_partai', '=', 'caleg.id_partai')
-        ->select('caleg.name_caleg', 'caleg.nomor_urut', 'caleg.alamat', 'dapil.provinsi', 'dapil.kota_kabupaten', 'partai.name_partai', 'partai.nomor_partai', 'caleg.id_caleg as idcaleg','caleg.modified_by','caleg.updated_at')
+        ->select('caleg.name_caleg', 'caleg.nomor_urut', 'caleg.alamat', 'dapil.provinsi', 'dapil.kota_kabupaten', 'partai.name_partai', 'partai.nomor_partai', 'caleg.id_caleg as idcaleg','caleg.modified_by','caleg.updated_at','partai.id_partai as idpartai')
         ->orderBy('caleg.updated_at', 'desc')
         ->get();
 
@@ -65,30 +65,50 @@ class CalegController extends Controller
     {
         try {
             DB::beginTransaction();
-            $id=$request->idcalegx;
+        
+            // Mendapatkan caleg berdasarkan id
+            $id = $request->idcalegx;
             $flight = CalegModel::findOrFail($id);
-            $flight->name_caleg = $request->namecalegx;
-            $flight->id_partai = $request->idpartaix;
-            $flight->id_dapil = $request->iddapilx;
-            $flight->created_by = Auth::user()->name;
-            $flight->modified_by = Auth::user()->name;
-            $flight->created_at = Carbon::now();
-            $flight->updated_at = Carbon::now(); 
-
+        
+            // Memeriksa dan mengupdate nama caleg jika tidak null
+            if ($request->namecalegx !== null) {
+                $flight->name_caleg = $request->namecalegx;
+            }
+        
+            // Memeriksa dan mengupdate id partai jika tidak null
+            if ($request->idpartaix !== null) {
+                $flight->id_partai = $request->idpartaix;
+            }
+        
+            // Memeriksa dan mengupdate id dapil jika tidak null
+            if ($request->iddapilx !== null) {
+                $flight->id_dapil = $request->iddapilx;
+            }
+        
+            // Memeriksa dan mengupdate timestamp
+            // $flight->created_by = Auth::user()->name;
+            // $flight->modified_by = Auth::user()->name;
+            // $flight->updated_at = Carbon::now();
+        
+            // Menyimpan perubahan
             $flight->save();
            
+            // Commit transaksi
             DB::commit();
-
+        
+            // Kembalikan respons sukses
             return response()->json([
-                'url' => url('partai'),
+                'url' => url('caleg'),
                 'message' => 'Update Data Berhasil'
             ]);
-        } catch (\Throwable $th) {
+        } catch (\Exception $e) {
+            // Jika terjadi kesalahan, rollback transaksi dan kembalikan pesan error
             DB::rollBack();
-            //dd($th);
+            dd($th);
             return response()->json([
-                'url' => url('partai'),
-                'message' => 'Update Data Gagal!!'
+                'url' => url('caleg'),
+                'message' => "Gagal Update Data",
+                'status'=>400
             ]);
         }
     }

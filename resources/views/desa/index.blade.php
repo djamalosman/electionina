@@ -60,7 +60,6 @@
                                 <tr>
                                     <th>Nama Kecamatan</th>
                                     <th>Nama Desa</th>
-                                    <th>Di buat</th>
                                     <th>Tanggal</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -70,15 +69,13 @@
                                     <tr>
                                         <td>{{ $header->nama_kecamatan }}</td>
                                         <td>{{ $header->nama_desa }}</td>
-                                        <td>{{ $header->modified_by }}</td>
                                         <td>{{ $header->updated_at }}</td>
                                         <td>
                                             <a class="passingID2 btn btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#default"
                                             data-iddesa="{{ $header->iddesa }}"
-                                            data-namauser="{{ $header->username }}"
-                                            data-rtrwname="{{ $header->namertrw }}"
-                                            data-titlentps="{{ $header->name_tps }}">
+                                            data-idcamat="{{ $header->idcamat }}"
+                                            data-namadesa="{{ $header->nama_desa }}">
                                             <dt class="the-icon"><span class="fa-fw select-all fas"></span></dt>
                                           </a>
                                         </td>
@@ -98,36 +95,29 @@
                     role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="myModalLabel33">Tambah Tps </h4>
+                            <h4 class="modal-title" id="myModalLabel33">Tambah Desa </h4>
                             <button type="button" class="close" data-bs-dismiss="modal"
                                 aria-label="Close">
                                 <i data-feather="x"></i>
                             </button>
                         </div>
-                        <form action="{{ route('tps.create') }}" onsubmit="validateForm()" method="POST" enctype="multipart/form-data" id="form">
+                        <form action="{{ route('desa.create') }}" onsubmit="validateForm()" method="POST" enctype="multipart/form-data" id="form">
                             @csrf
                             <div class="modal-body">
-                                <label>Nama Tps </label>
+                                <label>Nama Desa </label>
                                 <div class="form-group">
-                                    <input type="text" name="tpsname" id="tpsname" placeholder="Nama Tps"
+                                    <input type="text" name="nama_desa" id="nama_desa" placeholder="Nama Tps"
                                         class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label>Pilih Rt/Rw</label>
-                                    <select class="choices form-select" id="rtrwId" name="rtrwId">
-                                        @foreach ($rtrw as $val)
-                                            <option value="{{ $val->id }}">{{ $val->namertrw }}</option>
+                                    <label>Pilih Keamatan</label>
+                                    <select class="choices form-select" id="id_kecamatan" name="id_kecamatan">
+                                        @foreach ($camat as $val)
+                                            <option value="{{ $val->camatid }}">{{ $val->nama_kecamatan }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                    <label>Pilih user mobile </label>
-                                    <select class="choices form-select" id="iduser" name="iduser">
-                                        @foreach ($camat as $vals)
-                                            <option value="{{ $vals->iduser }}">{{ $vals->username }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-light-secondary"
@@ -150,36 +140,29 @@
                 <div class="modal-dialog modal-dialog-scrollable" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="myModalLabel1">Basic Modal</h5>
+                            <h5 class="modal-title" id="myModalLabel1">Edit Desa</h5>
                             <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
                                 aria-label="Close">
                                 <i data-feather="x"></i>
                             </button>
                         </div>
-                        <form action="{{ route('tps.update') }}" onsubmit="validateForm()" method="POST" enctype="multipart/form-data" id="formedit">
+                        <form action="{{ route('desa.update') }}" onsubmit="validateForm()" method="POST" enctype="multipart/form-data" id="formedit">
                             @csrf
                             <div class="modal-body">
-                                <label>Nama Tps </label>
+                                <label>Nama Desa </label>
                                 <div class="form-group">
-                                    <input type="text" name="nametpsx" id="nametpsx" placeholder="Nama Tps"class="form-control">
+                                    <input type="text" name="desanamex" id="desanamex" placeholder="Nama Desa"class="form-control">
                                 </div>
-                                <input hidden type="text" name="idtpsx" id="idtpsx" placeholder="Nama Tps"class="form-control">
+                                <input hidden type="text" name="iddesax" id="iddesax" placeholder="Nama desa"class="form-control">
                                 <div class="form-group">
-                                    <label>Pilih Rt/Rw</label>
-                                    <select class="choices form-select" id="rtrwId" name="rtrwId">
-                                        @foreach ($rtrw as $valEdit)
-                                            <option value="{{ $valEdit->id }}">{{ $valEdit->namertrw }}</option>
+                                    <label>Pilih Keamatan</label>
+                                    <select class="choices form-select" id="camatx" name="camatx">
+                                        @foreach ($camat as $val)
+                                            <option value="{{ $val->camatid }}">{{ $val->nama_kecamatan }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                    <label>Pilih user mobile </label>
-                                    <select class="choices form-select" id="iduser" name="iduser">
-                                        @foreach ($user as $valEdits)
-                                            <option value="{{ $valEdits->iduser }}">{{ $valEdits->username }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                
                             </div>
                            
                             <div class="modal-footer">
@@ -213,15 +196,13 @@
 <script>
     
     $(document).on("click", ".passingID2", function () {
-        var idtps = $(this).data('idtps'); // Use 'id' instead of 'kolom1'
-        var name_tps = $(this).data('titlentps');
-        var namauser = $(this).data('namauser');
-        var rtrwname = $(this).data('rtrwname');
+        var iddesa = $(this).data('iddesa'); // Us
+        var idcamat = $(this).data('idcamat');
+        var namadesa = $(this).data('namadesa');
         // Set the content of th elements
-        $("#idtpsx").val(idtps);
-        $("#nametpsx").val(name_tps);
-        $("#nameuser-header").val(namauser);
-        $("#namertrw-header").val(rtrwname);
+        $("#iddesax").val(iddesa);
+        $("#camatx").val(idcamat);
+        $("#desanamex").val(namadesa);
     });
 </script>
 <script>

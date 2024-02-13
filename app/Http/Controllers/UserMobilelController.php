@@ -81,29 +81,47 @@ class UserMobilelController extends Controller
      */
     public function update(Request $request)
     {
+        DB::beginTransaction();
+
         try {
-            $validator = Validator::make($request->all(), [
-                'iduserx' => 'required',
-                'nameuserx' => 'required',
-                'emailx' => 'required',
-                'passwordx' => 'required'
-            ]);
-            DB::beginTransaction();
-            $id = $request->iduserx;
+            // Mendapatkan user berdasarkan id
             $flight = UserMobileModel::find($request->iduserx);
-                        $flight->name = $request->nameuserx;
-                        $flight->email = $request->emailx;
-                        $flight->password = Hash::make($request->password);
-                        $flight->created_at = Carbon::now();
-                        $flight->updated_at = Carbon::now(); 
-                        $flight->update();
-                        DB::commit();
-                        return response()->json([
-                            'url' => url('usermobile'),
-                            'message' => 'Update Data Berhasil',
-                            'status'=>200
-                        ]);
-        }catch (\Throwable $th) {
+            
+            // Memeriksa apakah user ditemukan
+            if ($flight) {
+                // Memeriksa dan mengupdate nama jika tidak null
+                if ($request->nameuserx !== null) {
+                    $flight->name = $request->nameuserx;
+                }
+
+                // Memeriksa dan mengupdate email jika tidak null
+                if ($request->emailx !== null) {
+                    $flight->email = $request->emailx;
+                }
+
+                // Memeriksa dan mengupdate password jika tidak null
+                if ($request->password !== null) {
+                    $flight->password = Hash::make($request->password);
+                }
+
+                // Memeriksa dan mengupdate timestamp
+                $flight->updated_at = Carbon::now()->formatLocalized('%A, %d %B %Y');
+
+                // Menyimpan perubahan
+                $flight->save();
+            }
+
+            // Commit transaksi
+            DB::commit();
+
+            // Kembalikan respons sukses
+            return response()->json([
+                'url' => url('usermobile'),
+                'message' => 'Update Data Berhasil',
+                'status' => 200
+            ]);
+        } catch (\Exception $e) {
+            // Jika terjadi kesalahan, rollback transaksi dan kembalikan pesan error
             DB::rollBack();
             dd($th);
             return response()->json([

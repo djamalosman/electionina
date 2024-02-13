@@ -60,32 +60,51 @@ class KecamatanController extends Controller
     }
     public function update(Request $request)
     {
-        try {
-            DB::beginTransaction();
-            $id=$request->idpartaix;
-            $flight = PartaiModel::findOrFail($id);
-            $flight->name_partai = $request->namepartaix;
-            $flight->nomor_partai = $request->nomorpartaix;
-            $flight->alamat = $request->alamatpartaix;
-            $flight->created_by = Auth::user()->name;
-            $flight->modified_by = Auth::user()->name;
-            $flight->created_at = Carbon::now();
-            $flight->updated_at = Carbon::now(); 
+        DB::beginTransaction();
 
+        try {
+            // Mendapatkan partai berdasarkan id
+            $flight = PartaiModel::findOrFail($request->idpartaix);
+
+            // Memeriksa dan mengupdate nama partai jika tidak null
+            if ($request->namepartaix !== null) {
+                $flight->name_partai = $request->namepartaix;
+            }
+
+            // Memeriksa dan mengupdate nomor partai jika tidak null
+            if ($request->nomorpartaix !== null) {
+                $flight->nomor_partai = $request->nomorpartaix;
+            }
+
+            // Memeriksa dan mengupdate alamat jika tidak null
+            if ($request->alamatpartaix !== null) {
+                $flight->alamat = $request->alamatpartaix;
+            }
+
+            // Memeriksa dan mengupdate timestamp
+            // $flight->created_by = Auth::user()->name;
+            // $flight->modified_by = Auth::user()->name;
+            // $flight->updated_at = Carbon::now();
+
+            // Menyimpan perubahan
             $flight->save();
 
+            // Commit transaksi
             DB::commit();
 
+            // Kembalikan respons sukses
             return response()->json([
-                'url' => url('partai'),
+                'url' => url('camat'),
                 'message' => 'Update Data Berhasil'
             ]);
-        } catch (\Throwable $th) {
-            DB::rollBack();
-            //dd($th);
+        } catch (\Exception $e) {
+            // Jika terjadi kesalahan, rollback transaksi dan kembalikan pesan error
+            DDB::rollBack();
+            dd($th);
             return response()->json([
-                'url' => url('partai'),
-                'message' => 'Update Data Gagal!!'
+                'url' => url('camat'),
+                'message' => "Gagal Update Data",
+                'status'=>400
             ]);
         }
     }

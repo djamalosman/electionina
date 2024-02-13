@@ -108,31 +108,47 @@ class DapilController extends Controller
      */
     public function update(Request $request)
     {
-        try {
-            DB::beginTransaction();
-            $id=$request->iddapils;
-            $flight = DapilModel::findOrFail($id);
-            $flight->provinsi = $request->nameprovs;
-            $flight->kota_kabupaten = $request->namekk;
-            $flight->created_by = Auth::user()->name;
-            $flight->modified_by = Auth::user()->name;
-            $flight->created_at = Carbon::now();
-            $flight->updated_at = Carbon::now(); 
+        DB::beginTransaction();
 
+        try {
+            // Mendapatkan Dapil berdasarkan id
+            $id = $request->iddapils;
+            $flight = DapilModel::findOrFail($id);
+
+            // Memeriksa dan mengupdate provinsi jika tidak null
+            if ($request->nameprovs !== null) {
+                $flight->provinsi = $request->nameprovs;
+            }
+
+            // Memeriksa dan mengupdate kota_kabupaten jika tidak null
+            if ($request->namekk !== null) {
+                $flight->kota_kabupaten = $request->namekk;
+            }
+
+            // Memeriksa dan mengupdate timestamp
+            // $flight->created_by = Auth::user()->name;
+            // $flight->modified_by = Auth::user()->name;
+            // $flight->updated_at = Carbon::now();
+
+            // Menyimpan perubahan
             $flight->save();
 
+            // Commit transaksi
             DB::commit();
 
+            // Kembalikan respons sukses
             return response()->json([
                 'url' => url('dapil'),
                 'message' => 'Update Data Berhasil'
             ]);
-        } catch (\Throwable $th) {
+        } catch (\Exception $e) {
+            // Jika terjadi kesalahan, rollback transaksi dan kembalikan pesan error
             DB::rollBack();
-            //dd($th);
+            dd($th);
             return response()->json([
                 'url' => url('dapil'),
-                'message' => 'Update Data Gagal!!'
+                'message' => "Gagal Update Data",
+                'status'=>400
             ]);
         }
     }

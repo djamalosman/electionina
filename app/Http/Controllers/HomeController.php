@@ -76,7 +76,7 @@ class HomeController extends Controller
 
         // Query untuk mendapatkan data TPS berdasarkan id desa
         $data = DB::table(function($query) use ($iddesa) {
-            $query->select('rtrw.id as idrtrw','tps.name_tps as name_tps','rtrw.rt','rtrw.rw')
+            $query->select('rtrw.id as idrtrw','tps.name_tps as name_tps','rtrw.rt','rtrw.rw','tps.id_tps')
             ->from('tps')
             ->join('rtrw', 'rtrw.id', '=', 'tps.id_rtrw')
             ->join('desa', 'desa.id', '=', 'rtrw.id_desa')
@@ -90,9 +90,9 @@ class HomeController extends Controller
         // Ambil data dari permintaan
             $selectedPartai = $request->input('partai_id');
             $selectedCamat = $request->input('kecamatan_id');
-            $desa = $request->input('desa');
+            $selectedDesa = $request->input('desa');
             $selectedTPS = $request->input('tps');
-            $selectedCaleg = $request->input('caleg');
+            $selectedCaleg = $request->input('caleg_id');
 
             // Mulai kueri
             $query = DB::table('dapil as a')
@@ -104,9 +104,9 @@ class HomeController extends Controller
             ->join('calculate as g', 'g.id_dtl', '=', 'f.id_dtl')
             ->join('caleg as h', 'h.id_caleg', '=', 'g.id_caleg') 
             ->join('partai as i', 'i.id_partai', '=', 'h.id_partai')
-            ->join('detail_dapil as h_detail', 'h_detail.id_kecamatan', '=', 'b.id')
-            ->selectRaw('i.name_partai, SUM(g.totalsuara_caleg) as total_suara')
-            ->groupBy('i.name_partai');
+            // ->join('detail_dapil as h_detail', 'h_detail.id_kecamatan', '=', 'b.id')
+            ->selectRaw('i.name_partai,h.name_caleg,SUM(g.totalsuara_caleg) as total_suara')
+            ->groupBy('i.name_partai','h.name_caleg');
         
         // Filter berdasarkan pilihan pengguna
         if (!empty($selectedPartai)) {
@@ -116,14 +116,14 @@ class HomeController extends Controller
         if (!empty($selectedCamat)) {
             $query->where('b.id', $selectedCamat); 
         }
-        if (!empty($selectedDesa)) {
+        if (!empty($selectedDesa) && $selectedDesa !="square") {
             $query->where('c.id', $selectedDesa); 
         }
-        if (!empty($selectedTPS)) {
-            $query->where('e.id', $selectedTPS);
+        if (!empty($selectedTPS) && $selectedTPS !="square") {
+            $query->where('e.id_tps', $selectedTPS);
         }
         
-        if (!empty($selectedCaleg)) {
+        if (!empty($selectedCaleg) && $selectedCaleg !="square") {
             $query->where('h.id_caleg', $selectedCaleg); 
         }
 
@@ -131,10 +131,16 @@ class HomeController extends Controller
             $results = $query->get();
 
             // Ubah hasil kueri menjadi format yang sesuai untuk Bar Chart
-              $data = [];
+            $data = [];
             foreach ($results as $result) {
-        
-                $data['labels'][] = $result->name_partai;
+                if (!empty($selectedCaleg) && $selectedCaleg !="square") {
+                    
+                    $data['labels'][] =   $result->name_caleg . '-' . $result->name_partai;
+                }
+                else {
+                    $data['labels'][] = $result->name_caleg . '-' . $result->name_partai;
+                }
+                
                 $data['values'][] = $result->total_suara;
             }
            
