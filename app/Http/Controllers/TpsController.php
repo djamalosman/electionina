@@ -23,7 +23,9 @@ class TpsController extends Controller
     {
         $status = 1;
         $user =  DB::table('users')->select('users.name as username','users.id as iduser')->get();
-        $rtrw =  DB::table('rtrw')->select('rtrw.namertrw as namertrw','rtrw.id as idrtrw')->get();
+        $rtrw =  DB::table('rtrw')
+        ->join ('desa','rtrw.id_desa','=','desa.id')
+        ->select('rtrw.namertrw as namertrw','rtrw.id as idrtrw','desa.nama_desa')->get();
         
         $data = DB::table('tps')
         ->join('users', 'tps.id_user', '=', 'users.id')

@@ -173,7 +173,7 @@
                                     <label>Pilih Rt/Rw</label>
                                     <select class="choices form-select" id="rtrwIdx" name="rtrwIdx">
                                         @foreach ($rtrw as $valEdit)
-                                            <option value="{{ $valEdit->idrtrw }}">{{ $valEdit->namertrw }}</option>
+                                            <option value="{{ $valEdit->idrtrw }}">{{ $valEdit->nama_desa }}-{{ $valEdit->namertrw }}</option>
                                         @endforeach
                                     </select>
                                 </div>
