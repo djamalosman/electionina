@@ -229,7 +229,7 @@ class ApiDapilController extends Controller
                 ->from('tps')
                 ->join('rtrw', 'rtrw.id', '=', 'tps.id_rtrw')
                 ->where('tps.id_user', $idUser)
-                ->groupBy('idrtrw', 'namertrw'); // Pastikan untuk mengelompokkan juga berdasarkan kolom yang baru digabungkan
+                ->groupBy('idrtrw', 'namertrw', 'rtrw.rt', 'rtrw.rw'); // Pastikan untuk mengelompokkan juga berdasarkan kolom yang baru digabungkan
             })->get();
              $result = [];
  
