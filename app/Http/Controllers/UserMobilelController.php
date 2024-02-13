@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UserMobileModel;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
@@ -23,9 +23,9 @@ class UserMobilelController extends Controller
     {
        $status = 1;
         
-        $data = DB::table('usermobile')
-        ->select('usermobile.name as usernameMobile','usermobile.email','usermobile.id as iduserMobile','usermobile.updated_at','usermobile.password')
-        ->orderBy('usermobile.updated_at', 'desc')
+        $data = DB::table('users')
+        ->select('users.name as usernameMobile','users.email','users.id as iduserMobile','users.updated_at','users.password')
+        ->orderBy('users.updated_at', 'desc')
         ->get();
         return view('usermobile.index', compact('data','status'));
     }
@@ -45,7 +45,7 @@ class UserMobilelController extends Controller
             ]);
             DB::beginTransaction();   
                 
-            UserMobileModel::create([
+            User::create([
                 'name' => $request->username,
                 'email' => $request->email,
                 'password' => Hash::make($request['password']),
@@ -85,7 +85,7 @@ class UserMobilelController extends Controller
 
         try {
             // Mendapatkan user berdasarkan id
-            $flight = UserMobileModel::find($request->iduserx);
+            $flight = User::find($request->iduserx);
             
             // Memeriksa apakah user ditemukan
             if ($flight) {
